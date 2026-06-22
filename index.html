@@ -728,10 +728,9 @@ const observer = new IntersectionObserver((entries) => {
   });
 }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
 reveals.forEach(el => observer.observe(el));
-
 document.querySelectorAll('#hero .reveal').forEach((el, i) => {
   el.style.transitionDelay = `${i * 0.12}s`;
 });
 </script>
 </body>
-</html>
+</html>     
