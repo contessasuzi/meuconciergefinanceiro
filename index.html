@@ -31,6 +31,7 @@
   --rule:rgba(184,148,90,0.2);--rule-strong:rgba(184,148,90,0.35);
 }
 html{scroll-behavior:smooth}
+    p{text-align:justify;hyphens:auto}
 body{font-family:'Inter',sans-serif;background:var(--ink);color:var(--cream);font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 
 /* NAV */
@@ -272,6 +273,17 @@ footer{background:var(--ink);border-top:0.5px solid var(--rule);padding:2.75rem 
   .footer-right{text-align:center}
   .parceiros-header{padding:0 1.75rem}
   #reguladores{padding:3rem 1.75rem}
+}
+    @media(max-width:480px){
+  .nav-logo{font-size:0.8rem}
+  .nav-cta{font-size:0.62rem;padding:0.55rem 1rem;letter-spacing:0.08em}
+  .nav-cta svg{display:none}
+  .stats-inner{grid-template-columns:1fr}
+  .stat-item{border-right:none !important;padding-right:0}
+  .stat-item:not(:last-child){border-bottom:0.5px solid var(--rule)}
+  .stat-num{font-size:2.2rem}
+  h1{font-size:2.3rem}
+  h2{font-size:1.9rem}
 }
 </style>
 </head>
