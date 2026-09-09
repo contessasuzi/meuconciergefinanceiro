@@ -540,9 +540,13 @@ function renderGate() {
     if (seg === 'Outro' && !segOutro) return showErr('Descreva sua área de atuação.');
     state.lead = { nome: nome, email: email, fone: fone, segmento: seg, segmentoOutro: segOutro };
     save();
-    var segLabel = (seg === 'Outro' && segOutro) ? ('Outro — ' + segOutro) : seg;
-    var msg = 'Novo lead — Concierge de Preço%0A%0ANome: ' + encodeURIComponent(nome || 'não informado') + '%0AE-mail: ' + encodeURIComponent(email) + '%0AWhatsApp: ' + encodeURIComponent('+55 ' + fone) + '%0ASegmento: ' + encodeURIComponent(segLabel);
-    try { window.open('https://wa.me/5541987353722?text=' + msg, '_blank', 'noopener'); } catch (e) {}
+    try {
+      fetch('/api/lead', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ nome: nome, email: email, fone: fone, segmento: seg, segmentoOutro: segOutro })
+      }).catch(function () {});
+    } catch (e) {}
     state.screen = 'menu'; render(); scrollToApp();
   });
 }
