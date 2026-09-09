@@ -1,11 +1,15 @@
 // Recebe os dados do formulário do Concierge de Preço e cria o registro
-// no CRM da Suzi no Notion (Clientes + Funil de Vendas).
-// O token fica em uma variável de ambiente (NOTION_TOKEN) configurada no Vercel,
+// no CRM da Suzi no Notion (Clientes + Funil de Vendas), além de enviar
+// um e-mail de notificação para ela.
+// As credenciais ficam em variáveis de ambiente configuradas no Vercel,
 // nunca no código do repositório.
+
+const nodemailer = require('nodemailer');
 
 const NOTION_VERSION = '2022-06-28';
 const CLIENTES_DATA_SOURCE_ID = '0ada1d18-89da-4649-9785-c8b9815bd9a1';
 const FUNIL_DATA_SOURCE_ID = 'ba32d964-a2f2-4cea-8a0f-f29e7f1eec88';
+const NOTIFICATION_EMAIL = 'contessasuzi@gmail.com';
 
 async function notion(path, body) {
   const res = await fetch('https://api.notion.com/v1/' + path, {
@@ -25,6 +29,33 @@ async function notion(path, body) {
 }
 
 function onlyDigits(s) { return (s || '').replace(/\D/g, ''); }
+
+async function enviarNotificacaoPorEmail({ nome, email, fone, segLabel }) {
+  if (!process.env.GMAIL_USER || !process.env.GMAIL_APP_PASSWORD) {
+    console.error('GMAIL_USER ou GMAIL_APP_PASSWORD não configurados');
+    return;
+  }
+  const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: process.env.GMAIL_USER,
+      pass: process.env.GMAIL_APP_PASSWORD
+    }
+  });
+
+  await transporter.sendMail({
+    from: process.env.GMAIL_USER,
+    to: NOTIFICATION_EMAIL,
+    subject: 'Novo lead — Concierge de Preço (site)',
+    text:
+      'Um novo cliente usou a ferramenta Concierge de Preço no site.\n\n' +
+      'Nome: ' + (nome || '(não informado)') + '\n' +
+      'E-mail: ' + email + '\n' +
+      'WhatsApp: +55' + fone + '\n' +
+      'Segmento: ' + segLabel + '\n\n' +
+      'O cadastro e a oportunidade já foram criados no Notion.'
+  });
+}
 
 module.exports = async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -85,6 +116,13 @@ module.exports = async function handler(req, res) {
         'Observações': { rich_text: [{ text: { content: 'Origem: ferramenta Concierge de Preço no site (' + origem + '). Segmento informado: ' + segLabel + '.' } }] }
       }
     });
+
+    // 3) Envia a notificação por e-mail (não deve derrubar a resposta se falhar)
+    try {
+      await enviarNotificacaoPorEmail({ nome, email, fone, segLabel });
+    } catch (emailErr) {
+      console.error('Falha ao enviar e-mail de notificação:', emailErr);
+    }
 
     res.status(200).json({ ok: true });
   } catch (err) {
