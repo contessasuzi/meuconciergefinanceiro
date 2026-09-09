@@ -18,7 +18,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://www.meuconciergefinanceiro.com.br/concierge-de-preco">
 <meta property="og:title" content="Concierge de Preço | Suzi Contessa — GFX Inteligência Financeira">
-<meta property="og:description" content="Transforme custos, despesas e metas de lucro em informações para tomar decisões de preço com mais clareza.">
+<meta property="og:description" content="Transforme custos, despesas e metas de lucro em informações para tomar decisões de preço com mais assertividade.">
 <meta property="og:image" content="https://www.meuconciergefinanceiro.com.br/images/og-image.jpg">
 <link rel="icon" type="image/x-icon" href="/favicon.ico">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -71,6 +71,7 @@ h1{font-family:'Cormorant Garamond',serif;font-size:clamp(3rem,5.5vw,5.2rem);fon
 h1 em{font-style:italic;color:var(--gold-light)}
 .hero-tag{font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:400;font-style:italic;color:var(--gold-light);margin-bottom:1.75rem;line-height:1.4}
 .hero-sub{font-size:1rem;font-weight:300;color:rgba(250,248,244,0.58);max-width:480px;margin-bottom:2.5rem;line-height:1.85}
+.hero-sub strong{color:var(--cream);font-weight:400}
 .hero-actions{display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap}
 .btn-primary{display:inline-flex;align-items:center;gap:0.85rem;background:var(--gold);color:var(--ink);font-size:0.72rem;letter-spacing:0.18em;text-transform:uppercase;font-weight:600;padding:1.05rem 2.4rem;text-decoration:none;border:none;transition:background 0.2s,transform 0.15s,box-shadow 0.2s;position:relative}
 .btn-primary:hover{background:var(--gold-light);transform:translateY(-2px);box-shadow:0 8px 24px rgba(184,148,90,0.25)}
@@ -242,7 +243,7 @@ h2 em{font-style:italic;color:var(--gold-light)}
 
 /* Nota metodológica */
 #metodo{background:var(--ink)}
-.metodo-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start;margin-top:3rem}
+.metodo-grid{display:grid;grid-template-columns:1fr;gap:0;align-items:start;margin-top:3rem;max-width:640px}
 .metodo-grid p{font-size:0.92rem;font-weight:300;color:rgba(250,248,244,0.55);line-height:1.95;margin-bottom:1.25rem;text-align:justify;hyphens:auto}
 .metodo-grid p strong{color:var(--cream);font-weight:400}
 .metodo-list{list-style:none;border:0.5px solid var(--rule)}
@@ -289,6 +290,7 @@ footer{background:var(--ink);border-top:0.5px solid var(--rule);padding:2.75rem 
 .gate-row select option{background:var(--ink-80);color:var(--cream)}
 .gate-consent{font-size:0.78rem;color:var(--muted);font-weight:300;line-height:1.7;margin:1.75rem 0 2rem;max-width:480px}
 .gate-consent strong{color:rgba(250,248,244,0.75);font-weight:400}
+.res-disclaimer{font-size:0.76rem;color:var(--muted);font-weight:300;line-height:1.7;margin:1.5rem 0 0;max-width:640px}
 
 /* RESPONSIVE */
 @media(max-width:900px){
@@ -389,7 +391,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <p class="eyebrow reveal visible">Ferramenta · Precificação e Rentabilidade</p>
     <h1 class="reveal visible">Concierge <em>de Preço</em></h1>
     <p class="hero-tag reveal visible">Inteligência para Precificação e Rentabilidade</p>
-    <p class="hero-sub reveal visible">Transforme custos, despesas e metas de lucro em informações para tomar decisões de preço com mais clareza. Um assistente guiado: você responde uma pergunta por vez, o sistema valida, calcula, mostra a memória de cálculo e explica o que o número significa.</p>
+    <p class="hero-sub reveal visible">Transforme custos, despesas e metas de lucro em informações para tomar decisões de preço com mais assertividade.</p>
+    <p class="hero-sub reveal visible"><strong>Um assistente guiado.</strong> Você responde uma pergunta por vez, o sistema valida, calcula, mostra a memória de cálculo e explica o que o número significa.</p>
+    <p class="hero-sub reveal visible">Você me dá as informações. Eu te dou as respostas prontas.</p>
     <div class="hero-actions reveal visible">
       <a href="#ferramenta" class="btn-primary" id="btn-comecar">Começar
         <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
@@ -409,6 +413,21 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 </section>
 
+<!-- NOTA METODOLÓGICA -->
+<section id="metodo">
+  <div class="section-inner">
+    <p class="section-eyebrow reveal">Como funciona</p>
+    <h2 class="reveal">Números claros. <em>Decisões conscientes.</em></h2>
+    <div class="metodo-grid">
+      <div class="reveal">
+        <p>O Concierge de Preço não é uma planilha. É um assistente que conduz você pergunta a pergunta, valida cada informação antes de seguir e só calcula quando os dados fazem sentido matematicamente. Ele cobre seis análises — Markup e Preço de Venda, Margem de Lucro, Margem de Contribuição, Ponto de Equilíbrio, Ticket Médio e Diagnóstico Completo — e, ao final, cada resultado vem acompanhado da <strong>memória de cálculo</strong> — a conta aberta, passo a passo — e de uma explicação em linguagem simples.</p>
+        <p>Todos os cálculos são determinísticos, sem inteligência artificial na conta. Os valores informados ficam apenas no seu navegador durante a sessão e <strong>não são enviados a nenhum serviço externo</strong>.</p>
+        <p>Depois de qualquer resultado, você pode simular outro cenário alterando uma variável — custo, margem desejada, gastos ou preço — e comparar o cenário atual com o simulado antes de decidir.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- FERRAMENTA -->
 <section id="ferramenta">
   <div class="section-inner">
@@ -424,34 +443,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 </section>
 
-<!-- NOTA METODOLÓGICA -->
-<section id="metodo">
-  <div class="section-inner">
-    <p class="section-eyebrow reveal">Como funciona</p>
-    <h2 class="reveal">Números claros. <em>Decisões conscientes.</em></h2>
-    <div class="metodo-grid">
-      <div class="reveal">
-        <p>O Concierge de Preço não é uma planilha. É um assistente que conduz você pergunta a pergunta, valida cada informação antes de seguir e só calcula quando os dados fazem sentido matematicamente. Ao final, cada resultado vem acompanhado da <strong>memória de cálculo</strong> — a conta aberta, passo a passo — e de uma explicação em linguagem simples.</p>
-        <p>Todas as fórmulas são determinísticas e documentadas ao lado. Os valores informados ficam apenas no seu navegador durante a sessão e <strong>não são enviados a nenhum serviço externo</strong>.</p>
-        <p>Depois de qualquer resultado, você pode simular outro cenário alterando uma variável — custo, margem desejada, gastos ou preço — e comparar o cenário atual com o simulado antes de decidir.</p>
-      </div>
-      <ul class="metodo-list reveal">
-        <li><b>Markup</b><code>100 ÷ [100 − (GF% + GV% + Lucro%)]</code></li>
-        <li><b>Preço de venda</b><code>Custo unitário × Markup</code></li>
-        <li><b>Margem de lucro</b><code>(Receita − Gastos totais) ÷ Receita × 100</code></li>
-        <li><b>Margem de contribuição</b><code>Receita − Gastos variáveis</code> · em %: <code>÷ Receita × 100</code></li>
-        <li><b>Ponto de equilíbrio</b><code>Gastos fixos ÷ (MC% ÷ 100)</code></li>
-        <li><b>Ticket médio</b><code>Faturamento ÷ Número de clientes</code></li>
-      </ul>
-    </div>
-  </div>
-</section>
 
 <!-- CTA -->
 <section id="cta">
   <div class="cta-inner">
     <p class="section-eyebrow reveal">Do número à decisão</p>
-    <h2 class="reveal">Os indicadores mostram o caminho. <em>A estratégia, construímos juntos.</em></h2>
+    <h2 class="reveal">Os indicadores mostram o caminho.<br><em>A estratégia, construímos juntos.</em></h2>
     <p class="cta-sub reveal">Se os resultados levantaram perguntas sobre preço, margem ou estrutura de gastos, converse com seu Concierge Financeiro.</p>
     <a href="https://wa.me/5541987353722" class="btn-dark reveal" target="_blank" rel="noopener">Falar com meu Concierge
       <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
@@ -515,28 +512,36 @@ function onlyDigits(v) { return (v || '').replace(/\D/g, ''); }
 function renderGate() {
   crumb(['Concierge de Preço']); progress(0, 0);
   var h = '<div class="fade"><span class="gate-badge">' + '<svg viewBox="0 0 24 24"><path d="M12 15a3 3 0 100-6 3 3 0 000 6z"/><path d="M19.4 13a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 11-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V19a2 2 0 11-4 0v-.09a1.65 1.65 0 00-1-1.51 1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 112.83-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H4a2 2 0 110-4h.09a1.65 1.65 0 001.51-1 1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 112.83-2.83l.06.06a1.65 1.65 0 001.82.33H10a1.65 1.65 0 001-1.51V4a2 2 0 114 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 112.83 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V10a1.65 1.65 0 001.51 1H20a2 2 0 110 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>' + 'Acesso gratuito e imediato</span>';
-  h += '<p class="intro-title">Antes de começar, <em>alguns dados</em></p><p class="intro-sub">O Concierge de Preço é gratuito. Em troca, preciso destas informações para colocar você em contato com a Suzi e o time GFX sobre precificação e rentabilidade.</p>';
+  h += '<p class="intro-title">Informe seus dados abaixo para acessar a ferramenta</p>';
   h += '<div class="gate-form">';
   h += '<div class="gate-row"><label for="g-nome">Nome</label><div class="field-wrap"><input id="g-nome" type="text" class="plain" autocomplete="name" placeholder="Seu nome" value="' + esc(state.lead && state.lead.nome || '') + '"></div></div>';
   h += '<div class="gate-row"><label for="g-email">E-mail</label><div class="field-wrap"><input id="g-email" type="email" class="plain" autocomplete="email" placeholder="voce@email.com" value="' + esc(state.lead && state.lead.email || '') + '"></div></div>';
   h += '<div class="gate-row"><label for="g-fone">WhatsApp</label><div class="field-wrap"><span class="field-prefix" style="font-size:1.1rem">+55</span><input id="g-fone" type="tel" class="plain" inputmode="numeric" autocomplete="tel" placeholder="(41) 90000-0000" value="' + esc(state.lead && state.lead.fone || '') + '"></div></div>';
   h += '<div class="gate-row"><label for="g-seg">Segmento / área de atuação</label><select id="g-seg">' + '<option value="" disabled' + (state.lead ? '' : ' selected') + '>Selecione</option>' + SEGMENTOS.map(function (s) { return '<option' + (state.lead && state.lead.segmento === s ? ' selected' : '') + '>' + s + '</option>'; }).join('') + '</select></div>';
+  h += '<div class="gate-row" id="g-seg-outro-row" hidden><label for="g-seg-outro">Descreva sua área de atuação</label><div class="field-wrap"><input id="g-seg-outro" type="text" class="plain" placeholder="Ex.: consultoria em RH" value="' + esc(state.lead && state.lead.segmentoOutro || '') + '"></div></div>';
   h += '</div><div class="field-error" id="err" role="alert" hidden></div>';
-  h += '<p class="gate-consent">Ao continuar, você concorda em ser contatada(o) pela <strong>GFX Inteligência Financeira</strong> por e-mail ou WhatsApp sobre este assunto. Seus dados não são compartilhados com terceiros.</p>';
+  h += '<p class="gate-consent">Ao clicar em \'Liberar a ferramenta\', você concorda em receber comunicações e novidades do Meu Concierge Financeiro. Seus dados serão tratados com total segurança, respeitando as normas da LGPD.</p>';
   h += '<button type="button" class="btn-next" id="g-go">Liberar a ferramenta ' + ARROW + '</button></div>';
   $body.innerHTML = h; $foot.innerHTML = '';
+  var $seg = document.getElementById('g-seg'), $segOutroRow = document.getElementById('g-seg-outro-row');
+  function toggleSegOutro() { $segOutroRow.hidden = $seg.value !== 'Outro'; }
+  toggleSegOutro();
+  $seg.addEventListener('change', toggleSegOutro);
   document.getElementById('g-go').addEventListener('click', function () {
     var nome = document.getElementById('g-nome').value.trim();
     var email = document.getElementById('g-email').value.trim();
     var foneRaw = document.getElementById('g-fone').value.trim();
     var fone = onlyDigits(foneRaw);
     var seg = document.getElementById('g-seg').value;
+    var segOutro = document.getElementById('g-seg-outro').value.trim();
     if (!email || !validEmail(email)) return showErr('Informe um e-mail válido.');
     if (fone.length < 10) return showErr('Informe um WhatsApp válido, com DDD.');
     if (!seg) return showErr('Selecione seu segmento de atuação.');
-    state.lead = { nome: nome, email: email, fone: fone, segmento: seg };
+    if (seg === 'Outro' && !segOutro) return showErr('Descreva sua área de atuação.');
+    state.lead = { nome: nome, email: email, fone: fone, segmento: seg, segmentoOutro: segOutro };
     save();
-    var msg = 'Novo lead — Concierge de Preço%0A%0ANome: ' + encodeURIComponent(nome || 'não informado') + '%0AE-mail: ' + encodeURIComponent(email) + '%0AWhatsApp: ' + encodeURIComponent('+55 ' + fone) + '%0ASegmento: ' + encodeURIComponent(seg);
+    var segLabel = (seg === 'Outro' && segOutro) ? ('Outro — ' + segOutro) : seg;
+    var msg = 'Novo lead — Concierge de Preço%0A%0ANome: ' + encodeURIComponent(nome || 'não informado') + '%0AE-mail: ' + encodeURIComponent(email) + '%0AWhatsApp: ' + encodeURIComponent('+55 ' + fone) + '%0ASegmento: ' + encodeURIComponent(segLabel);
     try { window.open('https://wa.me/5541987353722?text=' + msg, '_blank', 'noopener'); } catch (e) {}
     state.screen = 'menu'; render(); scrollToApp();
   });
@@ -967,6 +972,7 @@ function renderResult() {
   if (R.text) h += block('O que isso significa', '<div class="res-text">' + R.text + '</div>', true);
   if (R.extra) R.extra.forEach(function (x) { h += block(x.t, '<div class="res-text">' + x.h + '</div>', x.open !== false); });
   if (R.note) h += '<p class="res-note">' + R.note + '</p>';
+  h += '<p class="res-disclaimer">Este resultado é uma simulação construída a partir das informações que você forneceu nesta análise. Ele não considera particularidades do seu negócio, do mercado ou do momento econômico, e não substitui uma orientação financeira personalizada.</p>';
   h += '<div class="res-actions"><button type="button" class="btn-next" id="sim">Simular outro cenário ' + ARROW + '</button><button type="button" class="btn-line" id="redo">Revisar respostas</button><button type="button" class="btn-line" id="new">Nova análise</button></div></div>';
   $body.innerHTML = h;
   $foot.innerHTML = '<div class="left"><button type="button" class="btn-back" id="menu">' + BACK + ' Análises</button><button type="button" class="btn-reset" id="reset">Reiniciar análise</button></div><div class="right"><a class="btn-line" href="https://wa.me/5541987353722" target="_blank" rel="noopener">Falar com meu Concierge</a></div>';
