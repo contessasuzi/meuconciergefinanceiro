@@ -24,6 +24,22 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    { "@type": "Question", "name": "O que é markup e como ele se relaciona com o preço de venda?", "acceptedAnswer": { "@type": "Answer", "text": "Markup é o coeficiente que você aplica sobre o custo unitário de um produto ou serviço para chegar ao preço de venda. Ele é calculado a partir dos seus gastos fixos, gastos variáveis e da margem de lucro desejada — juntos, eles determinam quanto o preço final precisa ser maior que o custo para cobrir tudo isso e ainda gerar lucro." } },
+    { "@type": "Question", "name": "Qual a diferença entre margem de lucro e margem de contribuição?", "acceptedAnswer": { "@type": "Answer", "text": "A margem de lucro mostra quanto sobra do faturamento depois de pagar todos os custos e despesas — é o resultado líquido da operação. Já a margem de contribuição mostra quanto sobra das vendas depois de pagar apenas os gastos variáveis, antes de considerar os gastos fixos. Margem de contribuição não é lucro: ela ainda precisa cobrir a estrutura fixa da empresa." } },
+    { "@type": "Question", "name": "Como calcular o ponto de equilíbrio da minha empresa?", "acceptedAnswer": { "@type": "Answer", "text": "O ponto de equilíbrio é o faturamento necessário para cobrir exatamente os gastos fixos, sem lucro nem prejuízo. Ele é calculado dividindo os gastos fixos pelo índice de margem de contribuição. A ferramenta faz esse cálculo automaticamente, e se você não souber o índice de margem de contribuição, pode calculá-lo na própria tela." } },
+    { "@type": "Question", "name": "Qual a diferença entre custo e despesa?", "acceptedAnswer": { "@type": "Answer", "text": "Custo é o gasto ligado diretamente à produção ou execução do que você vende — como matéria-prima ou material de consumo por atendimento. Despesa é o gasto que mantém a empresa funcionando, independente do volume vendido — como aluguel ou contabilidade. Separar os dois ajuda a entender de onde vem, de fato, o resultado do seu negócio." } },
+    { "@type": "Question", "name": "O Concierge de Preço é gratuito?", "acceptedAnswer": { "@type": "Answer", "text": "Sim. O acesso é gratuito e imediato, mediante o preenchimento de nome, e-mail, WhatsApp e segmento de atuação." } },
+    { "@type": "Question", "name": "Preciso ter conhecimento de finanças para usar a ferramenta?", "acceptedAnswer": { "@type": "Answer", "text": "Não. A ferramenta foi pensada para quem não tem formação em finanças: as perguntas são feitas uma de cada vez, em linguagem simples, com exemplos contextualizados ao seu segmento, e cada resultado vem acompanhado de uma explicação de como chegar naquele número." } },
+    { "@type": "Question", "name": "Os números que eu informo durante os cálculos ficam salvos ou são enviados para algum lugar?", "acceptedAnswer": { "@type": "Answer", "text": "Não. Os valores que você digita durante os cálculos — custos, faturamento, percentuais — ficam apenas no seu navegador, durante a sessão, e não são enviados a nenhum servidor ou serviço externo." } },
+    { "@type": "Question", "name": "O preço calculado é o preço que devo cobrar dos meus clientes?", "acceptedAnswer": { "@type": "Answer", "text": "O preço calculado é uma referência financeira, baseada exclusivamente nos números que você informou. Antes de adotá-lo, vale considerar também o mercado, a concorrência, o posicionamento do seu negócio e a capacidade de compra dos seus clientes — por isso a ferramenta oferece, no módulo de Markup, a opção de comparar o preço calculado com o preço praticado no mercado." } }
+  ]
+}
+</script>
 <style>
 @font-face{font-family:'Cormorant Garamond';font-style:normal;font-weight:300;font-display:swap;src:url('/fonts/cormorant-garamond-v21-latin-300.woff2') format('woff2')}
 @font-face{font-family:'Cormorant Garamond';font-style:italic;font-weight:300;font-display:swap;src:url('/fonts/cormorant-garamond-v21-latin-300italic.woff2') format('woff2')}
@@ -50,28 +66,30 @@ body{font-family:'Inter',sans-serif;background:var(--ink);color:var(--cream);fon
 p{color:rgba(250,248,244,0.82)}
 button{font-family:inherit;cursor:pointer}
 :focus-visible{outline:1.5px solid var(--gold-light);outline-offset:3px}
+input:-webkit-autofill,input:-webkit-autofill:hover,input:-webkit-autofill:focus,input:-webkit-autofill:active{-webkit-box-shadow:0 0 0 1000px var(--ink) inset !important;box-shadow:0 0 0 1000px var(--ink) inset !important;-webkit-text-fill-color:var(--cream) !important;caret-color:var(--cream);transition:background-color 9999s ease-in-out 0s}
 
 /* NAV */
 nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1.4rem 4rem;background:rgba(15,14,12,0.94);backdrop-filter:blur(16px);border-bottom:0.5px solid var(--rule)}
 .nav-logo{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:400;letter-spacing:0.18em;color:var(--gold-light);text-transform:uppercase;text-decoration:none}
 .nav-right{display:flex;align-items:center;gap:2rem}
-.nav-link{font-size:0.72rem;letter-spacing:0.14em;text-transform:uppercase;color:rgba(250,248,244,0.4);text-decoration:none;transition:color 0.2s}
+.nav-link{font-size:0.72rem;letter-spacing:0.14em;text-transform:uppercase;color:rgba(250,248,244,0.4);text-decoration:none;transition:color 0.2s;white-space:nowrap}
 .nav-link:hover{color:var(--gold-light)}
 .nav-link.active{color:var(--gold-light)}
 .nav-cta{font-size:0.7rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--ink);background:var(--gold);text-decoration:none;padding:0.65rem 1.6rem;font-weight:600;transition:background 0.2s,transform 0.15s;display:inline-flex;align-items:center;gap:0.5rem}
 .nav-cta:hover{background:var(--gold-light);transform:translateY(-1px)}
 
 /* HERO */
-#hero{min-height:100vh;display:grid;grid-template-columns:1.1fr 0.9fr;align-items:center;padding:0 4rem;padding-top:7rem;position:relative;overflow:hidden;gap:4rem}
+#hero{min-height:100vh;display:grid;grid-template-columns:1.1fr 0.9fr;align-items:center;padding:0 4rem;padding-top:7rem;position:relative;overflow:hidden;gap:4rem;min-width:0}
 .hero-bg-line{position:absolute;top:0;bottom:0;left:50%;width:0.5px;background:linear-gradient(to bottom,transparent,var(--rule) 25%,var(--rule) 75%,transparent);pointer-events:none}
-.hero-content{position:relative;z-index:2}
+.hero-content{position:relative;z-index:2;min-width:0}
 .eyebrow{font-size:0.68rem;letter-spacing:0.26em;text-transform:uppercase;color:var(--gold);margin-bottom:2rem;display:flex;align-items:center;gap:1rem}
 .eyebrow::before{content:'';display:block;width:2.5rem;height:0.5px;background:var(--gold);flex-shrink:0}
-h1{font-family:'Cormorant Garamond',serif;font-size:clamp(3rem,5.5vw,5.2rem);font-weight:300;line-height:1.06;letter-spacing:-0.015em;color:var(--cream);margin-bottom:1.25rem}
+h1{font-family:'Cormorant Garamond',serif;font-size:clamp(3rem,5.5vw,5.2rem);font-weight:400;line-height:1.06;letter-spacing:-0.015em;color:var(--cream);margin-bottom:1.25rem}
 h1 em{font-style:italic;color:var(--gold-light)}
 .hero-tag{font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:400;font-style:italic;color:var(--gold-light);margin-bottom:1.75rem;line-height:1.4}
-.hero-sub{font-size:1rem;font-weight:300;color:rgba(250,248,244,0.58);max-width:480px;margin-bottom:2.5rem;line-height:1.85}
+.hero-sub{font-size:1rem;font-weight:300;color:rgba(250,248,244,0.58);max-width:480px;margin-bottom:2.5rem;line-height:1.85;text-align:justify;hyphens:auto}
 .hero-sub strong{color:var(--cream);font-weight:400}
+.hero-highlight{font-size:clamp(0.9rem,3vw,1.2rem);font-weight:500;color:var(--cream);margin-bottom:2.5rem;line-height:1.5;max-width:480px}
 .hero-actions{display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap}
 .btn-primary{display:inline-flex;align-items:center;gap:0.85rem;background:var(--gold);color:var(--ink);font-size:0.72rem;letter-spacing:0.18em;text-transform:uppercase;font-weight:600;padding:1.05rem 2.4rem;text-decoration:none;border:none;transition:background 0.2s,transform 0.15s,box-shadow 0.2s;position:relative}
 .btn-primary:hover{background:var(--gold-light);transform:translateY(-2px);box-shadow:0 8px 24px rgba(184,148,90,0.25)}
@@ -124,7 +142,8 @@ h2 em{font-style:italic;color:var(--gold-light)}
 @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 .intro-title{font-family:'Cormorant Garamond',serif;font-size:clamp(1.9rem,3vw,2.6rem);font-weight:300;line-height:1.15;color:var(--cream);margin-bottom:0.75rem}
 .intro-title em{font-style:italic;color:var(--gold-light)}
-.intro-sub{font-size:0.92rem;font-weight:300;color:rgba(250,248,244,0.55);line-height:1.85;max-width:560px;margin-bottom:2.25rem}
+.gate-title{font-size:clamp(0.85rem,3.6vw,1.7rem)}
+.intro-sub{font-size:0.92rem;font-weight:300;color:rgba(250,248,244,0.55);line-height:1.85;max-width:560px;margin-bottom:2.25rem;text-align:justify;hyphens:auto}
 
 .menu-grid{display:grid;grid-template-columns:1fr 1fr;border:0.5px solid var(--rule)}
 .menu-item{text-align:left;background:none;border:none;border-right:0.5px solid var(--rule);border-bottom:0.5px solid var(--rule);padding:1.6rem 1.6rem 1.5rem;color:var(--cream);transition:background 0.2s;display:flex;flex-direction:column;gap:0.35rem;min-height:9rem}
@@ -133,13 +152,13 @@ h2 em{font-style:italic;color:var(--gold-light)}
 .menu-item:hover{background:rgba(184,148,90,0.06)}
 .menu-num{font-size:0.62rem;letter-spacing:0.22em;color:var(--gold);text-transform:uppercase}
 .menu-item h3{font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:400;line-height:1.25;color:var(--cream)}
-.menu-item p{font-size:0.8rem;font-weight:300;color:var(--muted);line-height:1.7}
+.menu-item p{font-size:0.8rem;font-weight:300;color:var(--muted);line-height:1.7;text-align:justify;hyphens:auto}
 .menu-item .go{margin-top:auto;padding-top:0.75rem;font-size:0.62rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold-light);display:flex;align-items:center;gap:0.5rem}
 .menu-item .go svg{width:11px;height:11px;fill:none;stroke:currentColor;stroke-width:2.5}
 
 .q-label{font-family:'Cormorant Garamond',serif;font-size:clamp(1.6rem,2.6vw,2.15rem);font-weight:300;line-height:1.2;color:var(--cream);margin-bottom:0.6rem}
 .q-label em{font-style:italic;color:var(--gold-light)}
-.q-hint{font-size:0.85rem;font-weight:300;color:rgba(250,248,244,0.5);line-height:1.8;margin-bottom:2rem;max-width:560px}
+.q-hint{font-size:0.85rem;font-weight:300;color:rgba(250,248,244,0.5);line-height:1.8;margin-bottom:2rem;max-width:560px;text-align:justify;hyphens:auto}
 .q-hint strong{color:rgba(250,248,244,0.8);font-weight:400}
 .field{position:relative;max-width:420px}
 .field-wrap{display:flex;align-items:baseline;gap:0.75rem;border-bottom:1px solid var(--rule-strong);padding:0.4rem 0;transition:border-color 0.2s}
@@ -179,7 +198,7 @@ h2 em{font-style:italic;color:var(--gold-light)}
 
 .info-card{border:0.5px solid var(--rule-strong);padding:1.75rem 2rem;max-width:560px;background:rgba(184,148,90,0.04);margin-bottom:1.5rem}
 .info-card .lbl{font-size:0.62rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);margin-bottom:0.5rem}
-.info-card .val{font-family:'Cormorant Garamond',serif;font-size:2.4rem;font-weight:300;color:var(--cream);line-height:1.1}
+.info-card .val{font-family:'Inter',sans-serif;font-size:2.4rem;font-weight:300;color:var(--cream);line-height:1.1}
 .info-card p{font-size:0.82rem;color:var(--muted);font-weight:300;margin-top:0.75rem;line-height:1.75}
 
 /* Resultado */
@@ -190,14 +209,14 @@ h2 em{font-style:italic;color:var(--gold-light)}
 .res-hero{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.5rem}
 .res-big{border:0.5px solid var(--rule-strong);padding:1.75rem 1.75rem 1.5rem;background:rgba(184,148,90,0.05)}
 .res-big .lbl{font-size:0.62rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);margin-bottom:0.6rem}
-.res-big .val{font-family:'Cormorant Garamond',serif;font-size:clamp(2.2rem,4vw,3.2rem);font-weight:300;color:var(--cream);line-height:1;font-variant-numeric:tabular-nums;word-break:break-word}
+.res-big .val{font-family:'Inter',sans-serif;font-size:clamp(2.2rem,4vw,3.2rem);font-weight:300;color:var(--cream);line-height:1;font-variant-numeric:tabular-nums;word-break:break-word}
 .res-big .val.neg{color:#E07B6E}
 .res-big .val.pos{color:var(--gold-light)}
 .res-big .sub{font-size:0.78rem;color:var(--muted);margin-top:0.6rem;font-weight:300;line-height:1.6}
 .res-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:0.75rem;margin-bottom:1.5rem}
 .res-card{border:0.5px solid var(--rule);padding:1.2rem 1.25rem 1.1rem}
 .res-card .lbl{font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted);margin-bottom:0.4rem;line-height:1.4}
-.res-card .val{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:400;color:var(--cream);line-height:1.1;font-variant-numeric:tabular-nums}
+.res-card .val{font-family:'Inter',sans-serif;font-size:1.6rem;font-weight:400;color:var(--cream);line-height:1.1;font-variant-numeric:tabular-nums}
 .res-card .val.neg{color:#E07B6E}
 .res-card .val.gold{color:var(--gold-light)}
 .res-block{border:0.5px solid var(--rule);margin-bottom:1rem}
@@ -213,7 +232,7 @@ h2 em{font-style:italic;color:var(--gold-light)}
 .memo li b{font-weight:400;color:var(--cream);font-variant-numeric:tabular-nums;text-align:right;white-space:nowrap}
 .memo li.hl b{color:var(--gold-light)}
 .memo li.formula{grid-template-columns:1fr;color:var(--gold);font-size:0.7rem;letter-spacing:0.14em;text-transform:uppercase;border-bottom:none;padding-top:0.9rem}
-.res-text{padding-top:1.25rem;font-size:0.88rem;font-weight:300;color:rgba(250,248,244,0.65);line-height:1.9}
+.res-text{padding-top:1.25rem;font-size:0.88rem;font-weight:300;color:rgba(250,248,244,0.65);line-height:1.9;text-align:justify;hyphens:auto}
 .res-text p{margin-bottom:0.9rem;color:rgba(250,248,244,0.65)}
 .res-text p:last-child{margin-bottom:0}
 .res-text strong{color:var(--cream);font-weight:400}
@@ -257,9 +276,10 @@ h2 em{font-style:italic;color:var(--gold-light)}
 .cta-inner{max-width:680px;margin:0 auto;text-align:center;position:relative;z-index:2}
 #cta .section-eyebrow{color:rgba(15,14,12,0.5);justify-content:center}
 #cta .section-eyebrow::before{background:rgba(15,14,12,0.4)}
-#cta h2{color:var(--ink);margin-bottom:1.25rem;font-size:clamp(2rem,3.5vw,3rem)}
+#cta h2{color:var(--ink);margin-bottom:1.25rem;font-size:clamp(1.5rem,4.2vw,2.3rem)}
 #cta h2 em{color:rgba(15,14,12,0.6)}
 .cta-sub{color:rgba(15,14,12,0.6);font-weight:300;max-width:460px;margin:0 auto 2.5rem;font-size:0.95rem;line-height:1.8}
+.cta-h2-line1{display:block}
 .btn-dark{display:inline-flex;align-items:center;gap:0.85rem;background:var(--ink);color:var(--gold-light);font-size:0.72rem;letter-spacing:0.18em;text-transform:uppercase;font-weight:600;padding:1.15rem 2.75rem;text-decoration:none;transition:background 0.2s,transform 0.15s,box-shadow 0.2s}
 .btn-dark:hover{background:var(--ink-80);transform:translateY(-2px);box-shadow:0 12px 32px rgba(15,14,12,0.35)}
 .btn-dark svg{width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:2.5;flex-shrink:0}
@@ -277,7 +297,8 @@ footer{background:var(--ink);border-top:0.5px solid var(--rule);padding:2.75rem 
 /* GATE — captura de lead */
 .gate-badge{display:inline-flex;align-items:center;gap:0.5rem;font-size:0.62rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--gold);border:0.5px solid var(--rule-strong);padding:0.5rem 1rem;margin-bottom:1.75rem}
 .gate-badge svg{width:12px;height:12px;stroke:var(--gold);fill:none;stroke-width:2}
-.gate-form{max-width:480px}
+.gate-form{max-width:640px;text-align:center}
+.gate-form .gate-row,.gate-form .gate-consent{text-align:left}
 .gate-row{margin-bottom:1.4rem}
 .gate-row label{display:block;font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);margin-bottom:0.5rem}
 .gate-row .field-wrap{max-width:100%;display:flex;align-items:baseline;gap:0.75rem;border-bottom:1px solid var(--rule-strong);padding:0.4rem 0;transition:border-color 0.2s}
@@ -288,11 +309,27 @@ footer{background:var(--ink);border-top:0.5px solid var(--rule);padding:2.75rem 
 .gate-row select{width:100%;background:none;border:none;border-bottom:1px solid var(--rule-strong);color:var(--cream);font-family:'Inter',sans-serif;font-size:1.1rem;font-weight:300;padding:0.5rem 0;outline:none}
 .gate-row select:focus{border-color:var(--gold)}
 .gate-row select option{background:var(--ink-80);color:var(--cream)}
-.gate-consent{font-size:0.78rem;color:var(--muted);font-weight:300;line-height:1.7;margin:1.75rem 0 2rem;max-width:480px}
+.gate-consent{font-size:0.78rem;color:var(--muted);font-weight:300;line-height:1.7;margin:1.75rem 0 2rem;max-width:640px;text-align:justify;hyphens:auto}
 .gate-consent strong{color:rgba(250,248,244,0.75);font-weight:400}
-.res-disclaimer{font-size:0.76rem;color:var(--muted);font-weight:300;line-height:1.7;margin:1.5rem 0 0;max-width:640px}
+.res-disclaimer{font-size:0.76rem;color:var(--muted);font-weight:300;line-height:1.7;margin:1.5rem 0 0;max-width:640px;text-align:justify;hyphens:auto}
+
+/* FAQ */
+.faq-list{border:0.5px solid var(--rule);max-width:820px}
+.faq-item{border-bottom:0.5px solid var(--rule)}
+.faq-item:last-child{border-bottom:none}
+.faq-item summary{cursor:pointer;padding:1.4rem 1.75rem;display:flex;align-items:center;justify-content:space-between;gap:1.5rem;font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:400;color:var(--cream);list-style:none}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-item summary::after{content:'+';color:var(--gold);font-size:1.3rem;font-weight:300;flex-shrink:0;transition:transform 0.2s;line-height:1}
+.faq-item[open] summary::after{transform:rotate(45deg)}
+.faq-item .faq-a{padding:0 1.75rem 1.5rem;font-size:0.88rem;font-weight:300;color:rgba(250,248,244,0.65);line-height:1.9;text-align:justify;hyphens:auto}
 
 /* RESPONSIVE */
+@media(max-width:1200px){
+  nav{padding:1.2rem 2rem}
+  .nav-right{gap:1.15rem}
+  .nav-link{font-size:0.62rem;letter-spacing:0.08em}
+  .nav-cta{font-size:0.62rem;letter-spacing:0.08em;padding:0.55rem 1.1rem}
+}
 @media(max-width:900px){
   nav{padding:1.1rem 1.75rem}
   .nav-link{display:none}
@@ -378,8 +415,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <a href="/#servicos" class="nav-link">Serviços</a>
     <a href="/#solucao" class="nav-link">Metodologia</a>
     <a href="/#suzi" class="nav-link">Sobre</a>
-    <a href="/empresas" class="nav-link">Para Empresas</a>
-    <a href="/concierge-de-preco" class="nav-link active">Concierge de Preço</a>
+    <a href="/empresas" class="nav-link">Benefícios Corporativos</a>
+    <a href="/concierge-de-preco" class="nav-link active">Concierge de&nbsp;Preço</a>
     <a href="https://wa.me/5541987353722" class="nav-cta" target="_blank" rel="noopener">Falar com meu Concierge</a>
   </div>
 </nav>
@@ -392,8 +429,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <h1 class="reveal visible">Concierge <em>de Preço</em></h1>
     <p class="hero-tag reveal visible">Inteligência para Precificação e Rentabilidade</p>
     <p class="hero-sub reveal visible">Transforme custos, despesas e metas de lucro em informações para tomar decisões de preço com mais assertividade.</p>
-    <p class="hero-sub reveal visible"><strong>Um assistente guiado.</strong> Você responde uma pergunta por vez, o sistema valida, calcula, mostra a memória de cálculo e explica o que o número significa.</p>
-    <p class="hero-sub reveal visible">Você me dá as informações. Eu te dou as respostas prontas.</p>
+    <p class="hero-sub reveal visible"><strong>Um assistente guiado para você que empreende.</strong><br>Você responde uma pergunta por vez, o sistema valida, calcula, mostra a memória de cálculo e explica o que o número significa.</p>
+    <p class="hero-highlight reveal visible">Você me dá as informações.<br>Eu te dou as respostas prontas.</p>
     <div class="hero-actions reveal visible">
       <a href="#ferramenta" class="btn-primary" id="btn-comecar">Começar
         <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
@@ -420,8 +457,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <h2 class="reveal">Números claros. <em>Decisões conscientes.</em></h2>
     <div class="metodo-grid">
       <div class="reveal">
-        <p>O Concierge de Preço não é uma planilha. É um assistente que conduz você pergunta a pergunta, valida cada informação antes de seguir e só calcula quando os dados fazem sentido matematicamente. Ele cobre seis análises — Markup e Preço de Venda, Margem de Lucro, Margem de Contribuição, Ponto de Equilíbrio, Ticket Médio e Diagnóstico Completo — e, ao final, cada resultado vem acompanhado da <strong>memória de cálculo</strong> — a conta aberta, passo a passo — e de uma explicação em linguagem simples.</p>
-        <p>Todos os cálculos são determinísticos, sem inteligência artificial na conta. Os valores informados ficam apenas no seu navegador durante a sessão e <strong>não são enviados a nenhum serviço externo</strong>.</p>
+        <p>O Concierge de Preço <strong>não é uma planilha</strong>.</p>
+        <p>É um assistente que conduz você pergunta a pergunta, valida cada informação antes de seguir e só calcula quando os dados fazem sentido matematicamente.</p>
+        <p>Ele cobre seis análises: Markup e Preço de Venda, Margem de Lucro, Margem de Contribuição, Ponto de Equilíbrio, Ticket Médio e Diagnóstico Completo. Ao final, cada resultado vem acompanhado da memória de cálculo — a conta aberta, passo a passo — e de uma explicação em linguagem simples.</p>
+        <p>Todos os cálculos são determinísticos, sem inteligência artificial na conta.</p>
+        <p>Os valores informados ficam apenas no seu navegador durante a sessão e não são enviados a nenhum serviço externo. Suas informações estão seguras.</p>
         <p>Depois de qualquer resultado, você pode simular outro cenário alterando uma variável — custo, margem desejada, gastos ou preço — e comparar o cenário atual com o simulado antes de decidir.</p>
       </div>
     </div>
@@ -443,13 +483,55 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 </section>
 
+<!-- FAQ -->
+<section id="faq">
+  <div class="section-inner">
+    <p class="section-eyebrow reveal">Perguntas frequentes</p>
+    <h2 class="reveal">O que você<br><em>precisa saber</em></h2>
+    <div class="faq-list reveal">
+      <details class="faq-item">
+        <summary>O que é markup e como ele se relaciona com o preço de venda?</summary>
+        <div class="faq-a"><p>Markup é o coeficiente que você aplica sobre o custo unitário de um produto ou serviço para chegar ao preço de venda. Ele é calculado a partir dos seus gastos fixos, gastos variáveis e da margem de lucro desejada — juntos, eles determinam quanto o preço final precisa ser maior que o custo para cobrir tudo isso e ainda gerar lucro.</p></div>
+      </details>
+      <details class="faq-item">
+        <summary>Qual a diferença entre margem de lucro e margem de contribuição?</summary>
+        <div class="faq-a"><p>A margem de lucro mostra quanto sobra do faturamento depois de pagar todos os custos e despesas — é o resultado líquido da operação. Já a margem de contribuição mostra quanto sobra das vendas depois de pagar apenas os gastos variáveis, antes de considerar os gastos fixos. Margem de contribuição não é lucro: ela ainda precisa cobrir a estrutura fixa da empresa.</p></div>
+      </details>
+      <details class="faq-item">
+        <summary>Como calcular o ponto de equilíbrio da minha empresa?</summary>
+        <div class="faq-a"><p>O ponto de equilíbrio é o faturamento necessário para cobrir exatamente os gastos fixos, sem lucro nem prejuízo. Ele é calculado dividindo os gastos fixos pelo índice de margem de contribuição. A ferramenta faz esse cálculo automaticamente, e se você não souber o índice de margem de contribuição, pode calculá-lo na própria tela.</p></div>
+      </details>
+      <details class="faq-item">
+        <summary>Qual a diferença entre custo e despesa?</summary>
+        <div class="faq-a"><p>Custo é o gasto ligado diretamente à produção ou execução do que você vende — como matéria-prima ou material de consumo por atendimento. Despesa é o gasto que mantém a empresa funcionando, independente do volume vendido — como aluguel ou contabilidade. Separar os dois ajuda a entender de onde vem, de fato, o resultado do seu negócio.</p></div>
+      </details>
+      <details class="faq-item">
+        <summary>O Concierge de Preço é gratuito?</summary>
+        <div class="faq-a"><p>Sim. O acesso é gratuito e imediato, mediante o preenchimento de nome, e-mail, WhatsApp e segmento de atuação.</p></div>
+      </details>
+      <details class="faq-item">
+        <summary>Preciso ter conhecimento de finanças para usar a ferramenta?</summary>
+        <div class="faq-a"><p>Não. A ferramenta foi pensada para quem não tem formação em finanças: as perguntas são feitas uma de cada vez, em linguagem simples, com exemplos contextualizados ao seu segmento, e cada resultado vem acompanhado de uma explicação de como chegar naquele número.</p></div>
+      </details>
+      <details class="faq-item">
+        <summary>Os números que eu informo durante os cálculos ficam salvos ou são enviados para algum lugar?</summary>
+        <div class="faq-a"><p>Não. Os valores que você digita durante os cálculos — custos, faturamento, percentuais — ficam apenas no seu navegador, durante a sessão, e não são enviados a nenhum servidor ou serviço externo.</p></div>
+      </details>
+      <details class="faq-item">
+        <summary>O preço calculado é o preço que devo cobrar dos meus clientes?</summary>
+        <div class="faq-a"><p>O preço calculado é uma referência financeira, baseada exclusivamente nos números que você informou. Antes de adotá-lo, vale considerar também o mercado, a concorrência, o posicionamento do seu negócio e a capacidade de compra dos seus clientes — por isso a ferramenta oferece, no módulo de Markup, a opção de comparar o preço calculado com o preço praticado no mercado.</p></div>
+      </details>
+    </div>
+  </div>
+</section>
+
 
 <!-- CTA -->
 <section id="cta">
   <div class="cta-inner">
     <p class="section-eyebrow reveal">Do número à decisão</p>
-    <h2 class="reveal">Os indicadores mostram o caminho.<br><em>A estratégia, construímos juntos.</em></h2>
-    <p class="cta-sub reveal">Se os resultados levantaram perguntas sobre preço, margem ou estrutura de gastos, converse com seu Concierge Financeiro.</p>
+    <h2 class="reveal"><span class="cta-h2-line1">Os indicadores mostram o caminho.</span><br><em>A estratégia, construímos juntos.</em></h2>
+    <p class="cta-sub reveal">Agora que você já tem os indicadores em mãos, se não souber como usá-los na prática, converse com seu Concierge Financeiro. Ele pode te ajudar a transformar esse diagnóstico em estratégias que podem melhorar seus resultados.</p>
     <a href="https://wa.me/5541987353722" class="btn-dark reveal" target="_blank" rel="noopener">Falar com meu Concierge
       <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
     </a>
@@ -506,13 +588,32 @@ function load() { try { var s = sessionStorage.getItem('cdp-state'); if (s) { va
 
 /* ---------- Captura de lead ---------- */
 var SEGMENTOS = ['Alimentação e bebidas', 'Moda e vestuário', 'Beleza e estética', 'Saúde e bem-estar', 'Educação e cursos', 'Serviços profissionais', 'Comércio varejista', 'Indústria e produção', 'Tecnologia e serviços digitais', 'Outro'];
+/* Exemplos de gastos por segmento, usados para contextualizar os campos de gastos fixos e variáveis */
+var SEGMENT_HINTS = {
+  'Alimentação e bebidas': { fixos: 'aluguel do espaço, geladeiras e freezers, licenças sanitárias', variaveis: 'insumos e ingredientes, embalagens, taxas de aplicativos de entrega' },
+  'Moda e vestuário': { fixos: 'aluguel da loja ou ateliê, prateleiras e manequins', variaveis: 'tecido e aviamentos, etiquetas, taxas de cartão, comissão de vendedores' },
+  'Beleza e estética': { fixos: 'aluguel do salão, macas e cadeiras', variaveis: 'produtos consumidos por atendimento, descartáveis, comissão de profissionais' },
+  'Saúde e bem-estar': { fixos: 'aluguel de consultório, esterilização, seguro de responsabilidade civil', variaveis: 'materiais de consumo por atendimento, exames terceirizados' },
+  'Educação e cursos': { fixos: 'aluguel de sala, plataforma de ensino, material didático fixo', variaveis: 'material consumido por aluno, taxas de certificação' },
+  'Serviços profissionais': { fixos: 'aluguel de escritório, softwares e assinaturas', variaveis: 'deslocamento por atendimento, terceirizações pontuais' },
+  'Comércio varejista': { fixos: 'aluguel do ponto, sistema de gestão', variaveis: 'custo da mercadoria vendida, embalagens, taxas de cartão' },
+  'Indústria e produção': { fixos: 'aluguel de galpão, manutenção de maquinário', variaveis: 'matéria-prima, energia da produção, frete' },
+  'Tecnologia e serviços digitais': { fixos: 'assinaturas de ferramentas, hospedagem', variaveis: 'comissões de plataforma, custo de processamento de pagamento' }
+};
+/* kind: 'fixos' ou 'variaveis'. Retorna uma frase pronta para anexar ao hint do campo, ou '' se o segmento não tiver exemplos (ex.: "Outro"). */
+function segmentHint(kind) {
+  var seg = state.lead && state.lead.segmento;
+  if (!seg || !SEGMENT_HINTS[seg]) return '';
+  var h = SEGMENT_HINTS[seg];
+  return ' No seu segmento (' + seg + '), exemplos comuns: ' + (kind === 'fixos' ? h.fixos : h.variaveis) + '.';
+}
 function validEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
 function onlyDigits(v) { return (v || '').replace(/\D/g, ''); }
 
 function renderGate() {
   crumb(['Concierge de Preço']); progress(0, 0);
   var h = '<div class="fade"><span class="gate-badge">' + '<svg viewBox="0 0 24 24"><path d="M12 15a3 3 0 100-6 3 3 0 000 6z"/><path d="M19.4 13a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 11-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V19a2 2 0 11-4 0v-.09a1.65 1.65 0 00-1-1.51 1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 112.83-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H4a2 2 0 110-4h.09a1.65 1.65 0 001.51-1 1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 112.83-2.83l.06.06a1.65 1.65 0 001.82.33H10a1.65 1.65 0 001-1.51V4a2 2 0 114 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 112.83 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V10a1.65 1.65 0 001.51 1H20a2 2 0 110 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>' + 'Acesso gratuito e imediato</span>';
-  h += '<p class="intro-title">Informe seus dados abaixo para acessar a ferramenta</p>';
+  h += '<p class="intro-title gate-title">Informe seus dados abaixo para descobrir como está a saúde financeira do seu negócio</p>';
   h += '<div class="gate-form">';
   h += '<div class="gate-row"><label for="g-nome">Nome</label><div class="field-wrap"><input id="g-nome" type="text" class="plain" autocomplete="name" placeholder="Seu nome" value="' + esc(state.lead && state.lead.nome || '') + '"></div></div>';
   h += '<div class="gate-row"><label for="g-email">E-mail</label><div class="field-wrap"><input id="g-email" type="email" class="plain" autocomplete="email" placeholder="voce@email.com" value="' + esc(state.lead && state.lead.email || '') + '"></div></div>';
@@ -588,7 +689,7 @@ var MODULES = {
       if (!(a.tipo === 'servico' && a.custoModo === 'hora')) {
         s.push({ id: 'custo', kind: CUR, label: 'Qual é o <em>custo unitário</em>?', hint: (a.tipo === 'servico' ? 'Custo direto para executar uma unidade do serviço. ' : 'Quanto custa produzir ou adquirir uma unidade. ') + fieldHint(CUR) });
       }
-      s.push({ id: 'gf', kind: PCT, label: 'Qual o <em>percentual de gastos fixos</em> sobre o faturamento?', hint: 'Aluguel, salários administrativos, pró-labore, contas fixas — tudo o que não muda com o volume de vendas, em relação ao faturamento.', helper: { id: 'gfModo', text: 'Não sei meu percentual' } });
+      s.push({ id: 'gf', kind: PCT, label: 'Qual o <em>percentual de gastos fixos</em> sobre o faturamento?', hint: 'Aluguel, salários administrativos, pró-labore, contas fixas — tudo o que não muda com o volume de vendas, em relação ao faturamento.' + segmentHint('fixos'), helper: { id: 'gfModo', text: 'Não sei meu percentual' } });
       if (a.gfModo === 'help') {
         s.push({ id: 'gfMensal', kind: CUR, label: 'Quanto somam seus <em>gastos fixos</em> por mês?', hint: 'Valor total em reais. ' + fieldHint(CUR) });
         s.push({ id: 'fatMedio', kind: CUR, label: 'Qual é o seu <em>faturamento médio</em> mensal?', hint: 'Média dos últimos meses. ' + fieldHint(CUR) });
@@ -597,7 +698,7 @@ var MODULES = {
           return { value: pct(r.percent), text: money(a.gfMensal) + ' ÷ ' + money(a.fatMedio) + ' × 100 = ' + pct(r.percent) + '. Este percentual será usado no cálculo do markup.' };
         } });
       }
-      s.push({ id: 'gv', kind: PCT, label: 'Qual o <em>percentual de gastos variáveis</em> sobre o faturamento?', hint: 'Impostos sobre vendas, comissões, taxas de cartão, fretes, seguros e outros gastos que acontecem a cada venda.', helper: { id: 'gvModo', text: 'Detalhar por itens' } });
+      s.push({ id: 'gv', kind: PCT, label: 'Qual o <em>percentual de gastos variáveis</em> sobre o faturamento?', hint: 'Impostos sobre vendas, comissões, taxas de cartão, fretes, seguros e outros gastos que acontecem a cada venda.' + segmentHint('variaveis'), helper: { id: 'gvModo', text: 'Detalhar por itens' } });
       if (a.gvModo === 'help') {
         s.push({ id: 'gvItens', kind: 'items', label: 'Informe os <em>gastos variáveis</em> do mês, em reais', hint: 'Preencha o que se aplica e deixe o restante em branco.',
           items: [{ id: 'impostos', l: 'Impostos' }, { id: 'comissoes', l: 'Comissões' }, { id: 'cartao', l: 'Taxas de cartão' }, { id: 'fretes', l: 'Fretes' }, { id: 'seguros', l: 'Seguros' }, { id: 'outros', l: 'Outros gastos de venda' }] });
@@ -608,6 +709,11 @@ var MODULES = {
         } });
       }
       s.push({ id: 'lucro', kind: PCT, label: 'Qual a <em>margem de lucro</em> desejada?', hint: 'Percentual do preço de venda que você quer que seja lucro. Lembre-se: a soma de gastos fixos, variáveis e lucro precisa ser menor que 100%.' });
+      s.push({ id: 'sabeMercado', kind: 'choice', label: 'Você já sabe o <em>preço de mercado</em> ou da concorrência para este ' + (a.tipo === 'servico' ? 'serviço' : 'produto') + '?', hint: 'Etapa opcional. Se você souber, comparamos com o preço calculado ao final.',
+        options: [{ v: 'sim', t: 'Sim, eu sei', d: 'Vou informar um valor de referência.' }, { v: 'nao', t: 'Não sei', d: 'Pular esta etapa.' }] });
+      if (a.sabeMercado === 'sim') {
+        s.push({ id: 'precoMercado', kind: CUR, label: 'Qual é o <em>preço de mercado</em> ou da concorrência?', hint: 'Valor aproximado praticado por concorrentes para um produto ou serviço similar. ' + fieldHint(CUR) });
+      }
       return s;
     },
     inputs: function (a) {
@@ -615,7 +721,8 @@ var MODULES = {
       if (a.tipo === 'servico' && a.custoModo === 'hora') custo = C.calculateLaborHourCost(a.folha, a.encargos, a.horas).hourCost * a.horasServico;
       var gf = a.gfModo === 'help' ? C.calculateExpensePercent(a.gfMensal, a.fatMedio).percent : a.gf;
       var gv = a.gvModo === 'help' ? C.calculateExpensePercent(sumItems(a.gvItens), a.fatMedio).percent : a.gv;
-      return { custo: custo, gf: gf, gv: gv, lucro: a.lucro, nome: a.nome };
+      var precoMercado = (a.sabeMercado === 'sim' && a.precoMercado != null) ? a.precoMercado : null;
+      return { custo: custo, gf: gf, gv: gv, lucro: a.lucro, nome: a.nome, precoMercado: precoMercado };
     },
     simFields: [{ id: 'custo', l: 'Custo unitário', k: CUR }, { id: 'gf', l: 'Gastos fixos', k: PCT }, { id: 'gv', l: 'Gastos variáveis', k: PCT }, { id: 'lucro', l: 'Lucro desejado', k: PCT }],
     compute: function (i) {
@@ -628,6 +735,20 @@ var MODULES = {
     outputs: [{ id: 'markup', l: 'Markup', f: function (v) { return num(v, 2); } }, { id: 'price', l: 'Preço de venda', f: money }],
     result: function (i, r) {
       var title = i.nome ? '<em>' + esc(i.nome) + '</em>: markup e preço de venda' : 'Markup e <em>preço de venda</em>';
+      var extra = [];
+      if (i.precoMercado != null) {
+        var diff = r.price - i.precoMercado;
+        var diffPct = diff / i.precoMercado * 100;
+        var big = Math.abs(diffPct) >= 15;
+        var mkComp = '<ul>';
+        mkComp += '<li>Preço calculado: <strong>' + money(r.price) + '</strong>. Preço de mercado informado: <strong>' + money(i.precoMercado) + '</strong>.</li>';
+        mkComp += '<li' + (big ? ' class="warn"' : '') + '>Diferença: <strong>' + (diff >= 0 ? '+' : '−') + money(Math.abs(diff)) + '</strong> (' + (diffPct >= 0 ? '+' : '−') + pct(Math.abs(diffPct)) + ' em relação ao preço de mercado).</li>';
+        if (big && diff > 0) mkComp += '<li class="warn">O preço calculado ficou bem acima do mercado. Vale revisar: a margem de lucro desejada está alta demais para este posicionamento? Os gastos fixos ou variáveis estão puxando o preço para cima? Este produto ou serviço entrega um valor percebido que sustente esse preço?</li>';
+        if (big && diff < 0) mkComp += '<li class="warn">O preço calculado ficou bem abaixo do mercado. Vale revisar: o custo unitário ou os gastos foram subestimados? Há espaço para aumentar a margem de lucro sem perder competitividade?</li>';
+        if (!big) mkComp += '<li>O preço calculado está próximo do praticado no mercado.</li>';
+        mkComp += '</ul>';
+        extra.push({ t: 'Comparação com o preço de mercado', h: mkComp, open: true });
+      }
       return {
         title: title,
         hero: [{ l: 'Markup', v: num(r.markup, 2), sub: 'coeficiente a aplicar sobre o custo' }, { l: 'Preço de venda calculado', v: money(r.price), cls: 'pos', sub: 'com precisão integral no cálculo' }],
@@ -639,6 +760,7 @@ var MODULES = {
           { f: 'Preço de venda' }, { k: money(i.custo) + ' × ' + num(r.markup, 4) + '…', v: money(r.price), hl: true }
         ],
         text: '<p>O <strong>markup de ' + num(r.markup, 2) + '</strong> é o número pelo qual o custo unitário precisa ser multiplicado para que o preço final absorva os gastos fixos (' + pct(i.gf) + '), os gastos variáveis (' + pct(i.gv) + ') e ainda entregue o lucro desejado (' + pct(i.lucro) + ').</p><p>Na prática: de cada ' + money(r.price) + ' vendidos, ' + money(i.custo) + ' cobrem o custo, ' + money(r.price * i.gf / 100) + ' cobrem a parte dos gastos fixos, ' + money(r.price * i.gv / 100) + ' cobrem os gastos variáveis e ' + money(r.price * i.lucro / 100) + ' ficam como lucro.</p><p>O cálculo usa o markup com todas as casas decimais; se ele fosse arredondado para ' + num(r.markup, 2) + ' antes de multiplicar, o preço mudaria ligeiramente.</p>',
+        extra: extra,
         note: 'O preço apresentado é uma referência financeira calculada a partir das informações fornecidas. Antes de adotá-lo, considere também mercado, concorrência, posicionamento e capacidade de compra dos clientes.'
       };
     }
@@ -649,26 +771,28 @@ var MODULES = {
     desc: 'Descubra quanto do seu faturamento efetivamente representa lucro.',
     steps: function () { return [
       { id: 'receita', kind: CUR, label: 'Qual foi o <em>faturamento</em> do período?', hint: 'Receita total das vendas no período que você quer analisar. ' + fieldHint(CUR) },
-      { id: 'gastos', kind: CUR, allowZero: true, label: 'Quanto somaram os <em>custos e despesas totais</em>?', hint: 'Tudo o que a empresa gastou no mesmo período: fixos e variáveis. ' + fieldHint(CUR) }
+      { id: 'custo', kind: CUR, allowZero: true, label: 'Quanto somaram os <em>custos</em> do período?', hint: 'Gastos ligados diretamente à produção ou execução do que foi vendido — o que varia conforme você vende.' + segmentHint('variaveis') },
+      { id: 'despesa', kind: CUR, allowZero: true, label: 'Quanto somaram as <em>despesas</em> do período?', hint: 'Gastos que mantêm a empresa funcionando, independente do volume vendido.' + segmentHint('fixos') }
     ]; },
-    inputs: function (a) { return { receita: a.receita, gastos: a.gastos }; },
-    simFields: [{ id: 'receita', l: 'Faturamento', k: CUR }, { id: 'gastos', l: 'Gastos totais', k: CUR }],
+    inputs: function (a) { return { receita: a.receita, custo: a.custo, despesa: a.despesa, gastos: a.custo + a.despesa }; },
+    simFields: [{ id: 'receita', l: 'Faturamento', k: CUR }, { id: 'custo', l: 'Custos', k: CUR }, { id: 'despesa', l: 'Despesas', k: CUR }],
     compute: function (i) { return C.calculateProfitMargin(i.receita, i.gastos); },
     outputs: [{ id: 'profit', l: 'Lucro / prejuízo', f: money }, { id: 'margin', l: 'Margem de lucro', f: function (v) { return pct(v); } }],
     result: function (i, r) {
       var loss = r.isLoss;
       return {
         title: loss ? 'O período fechou com <em>prejuízo</em>' : 'Sua <em>margem de lucro</em>',
-        hero: [{ l: loss ? 'Prejuízo' : 'Lucro', v: money(r.profit), cls: loss ? 'neg' : 'pos', sub: 'receita menos gastos totais' }, { l: 'Margem de lucro', v: pct(r.margin), cls: loss ? 'neg' : '', sub: 'do faturamento' }],
-        cards: [{ l: 'Faturamento', v: money(i.receita) }, { l: 'Gastos totais', v: money(i.gastos) }, { l: loss ? 'Resultado' : 'Resultado', v: money(r.profit), cls: loss ? 'neg' : 'gold' }],
+        hero: [{ l: loss ? 'Prejuízo' : 'Lucro', v: money(r.profit), cls: loss ? 'neg' : 'pos', sub: 'receita menos custos e despesas' }, { l: 'Margem de lucro', v: pct(r.margin), cls: loss ? 'neg' : '', sub: 'do faturamento' }],
+        cards: [{ l: 'Faturamento', v: money(i.receita) }, { l: 'Custos', v: money(i.custo) }, { l: 'Despesas', v: money(i.despesa) }, { l: loss ? 'Resultado' : 'Resultado', v: money(r.profit), cls: loss ? 'neg' : 'gold' }],
         memo: [
+          { f: 'Custos + despesas' }, { k: money(i.custo) + ' + ' + money(i.despesa), v: money(i.gastos), hl: true },
           { f: 'Lucro' }, { k: money(i.receita) + ' − ' + money(i.gastos), v: money(r.profit), hl: true },
           { f: 'Margem de lucro' }, { k: money(r.profit) + ' ÷ ' + money(i.receita) + ' × 100', v: pct(r.margin), hl: true }
         ],
         text: loss
-          ? '<p>Os gastos superaram a receita em <strong>' + money(-r.profit) + '</strong>. A margem negativa de ' + pct(r.margin) + ' indica que, para cada R$ 100 faturados, faltaram ' + money(-r.margin) + ' para cobrir os gastos do período.</p><p>Vale investigar se o problema está no volume de vendas, no preço praticado ou no tamanho da estrutura de gastos. A análise de ponto de equilíbrio ajuda a dimensionar quanto seria necessário faturar.</p>'
-          : '<p>De cada R$ 100 faturados, <strong>' + money(r.margin) + '</strong> ficaram como lucro depois de pagar todos os gastos. Essa é a margem líquida da operação no período.</p><p>Uma margem saudável varia por setor; o importante é acompanhar a tendência ao longo dos meses e entender o que a faz subir ou descer.</p>',
-        note: 'A margem de lucro considera todos os gastos informados. Se algum gasto ficou de fora, o resultado real será menor.'
+          ? '<p>Os custos e despesas superaram a receita em <strong>' + money(-r.profit) + '</strong>. A margem negativa de ' + pct(r.margin) + ' indica que, para cada R$ 100 faturados, faltaram ' + money(-r.margin) + ' para cobrir os custos e despesas do período.</p><p>Vale investigar se o problema está no volume de vendas, no preço praticado ou no tamanho da estrutura de despesas. A análise de ponto de equilíbrio ajuda a dimensionar quanto seria necessário faturar.</p>'
+          : '<p>De cada R$ 100 faturados, <strong>' + money(r.margin) + '</strong> ficaram como lucro depois de pagar todos os custos e despesas. Essa é a margem líquida da operação no período.</p><p>Uma margem saudável varia por setor; o importante é acompanhar a tendência ao longo dos meses e entender o que a faz subir ou descer.</p>',
+        note: 'A margem de lucro considera os custos e despesas informados. Se algum item ficou de fora, o resultado real será menor.'
       };
     }
   },
@@ -678,7 +802,7 @@ var MODULES = {
     desc: 'Descubra quanto das vendas sobra para pagar gastos fixos e contribuir para o lucro.',
     steps: function () { return [
       { id: 'receita', kind: CUR, label: 'Qual foi o <em>faturamento</em> do período?', hint: fieldHint(CUR) },
-      { id: 'variaveis', kind: CUR, allowZero: true, label: 'Quanto somaram os <em>gastos variáveis</em>?', hint: 'Impostos sobre vendas, comissões, taxas de cartão, fretes, custo das mercadorias vendidas — o que varia conforme você vende. ' + fieldHint(CUR) }
+      { id: 'variaveis', kind: CUR, allowZero: true, label: 'Quanto somaram os <em>gastos variáveis</em>?', hint: 'Impostos sobre vendas, comissões, taxas de cartão, fretes, custo das mercadorias vendidas — o que varia conforme você vende.' + segmentHint('variaveis') + ' ' + fieldHint(CUR) }
     ]; },
     inputs: function (a) { return { receita: a.receita, variaveis: a.variaveis }; },
     simFields: [{ id: 'receita', l: 'Faturamento', k: CUR }, { id: 'variaveis', l: 'Gastos variáveis', k: CUR }],
@@ -705,12 +829,25 @@ var MODULES = {
   equilibrio: {
     n: 4, name: 'Ponto de Equilíbrio', short: 'Ponto de Equilíbrio',
     desc: 'Descubra quanto a empresa precisa faturar para cobrir seus gastos.',
-    steps: function () { return [
-      { id: 'fixos', kind: CUR, label: 'Quanto somam os <em>gastos fixos</em> do período?', hint: 'Aluguel, salários administrativos, pró-labore, contas fixas. ' + fieldHint(CUR) },
-      { id: 'mc', kind: PCT, label: 'Qual é o seu <em>índice de margem de contribuição</em>?', hint: 'Percentual das vendas que sobra depois dos gastos variáveis. Se não souber, calcule antes na análise 3 — Margem de Contribuição.', max: 100 },
-      { id: 'fatAtual', kind: CUR, optional: true, label: 'Qual é o <em>faturamento atual</em> do período?', hint: 'Opcional. Se informar, comparamos com o ponto de equilíbrio. ' + fieldHint(CUR) }
-    ]; },
-    inputs: function (a) { return { fixos: a.fixos, mc: a.mc, fatAtual: a.fatAtual }; },
+    steps: function (a) {
+      var s = [];
+      s.push({ id: 'fixos', kind: CUR, label: 'Quanto somam os <em>gastos fixos</em> do período?', hint: 'Aluguel, salários administrativos, pró-labore, contas fixas.' + segmentHint('fixos') + ' ' + fieldHint(CUR) });
+      s.push({ id: 'mc', kind: PCT, label: 'Qual é o seu <em>índice de margem de contribuição</em>?', hint: 'Percentual das vendas que sobra depois dos gastos variáveis.', max: 100, helper: { id: 'mcModo', text: 'Não sei, quero calcular agora' } });
+      if (a.mcModo === 'help') {
+        s.push({ id: 'mcReceita', kind: CUR, label: 'Qual foi o <em>faturamento</em> do período de referência?', hint: 'Usaremos só para calcular seu índice de margem de contribuição. ' + fieldHint(CUR) });
+        s.push({ id: 'mcVariaveis', kind: CUR, allowZero: true, label: 'Quanto somaram os <em>gastos variáveis</em> desse mesmo período?', hint: 'Impostos sobre vendas, comissões, taxas de cartão, fretes.' + segmentHint('variaveis') });
+        s.push({ id: 'mcInfo', kind: 'info', label: 'Seu índice de margem de contribuição', render: function (a) {
+          var r = C.calculateContributionMarginRate(a.mcReceita, a.mcVariaveis);
+          return { value: pct(r.rate), text: '(' + money(a.mcReceita) + ' − ' + money(a.mcVariaveis) + ') ÷ ' + money(a.mcReceita) + ' × 100 = ' + pct(r.rate) + '. Este percentual será usado no cálculo do ponto de equilíbrio — se quiser conferir, use o botão "Voltar" para ajustar os valores, ou "Não sei meu percentual" ficará disponível de novo se você reiniciar esta etapa.' };
+        } });
+      }
+      s.push({ id: 'fatAtual', kind: CUR, optional: true, label: 'Qual é o <em>faturamento atual</em> do período?', hint: 'Opcional. Se informar, comparamos com o ponto de equilíbrio. ' + fieldHint(CUR) });
+      return s;
+    },
+    inputs: function (a) {
+      var mc = a.mcModo === 'help' ? C.calculateContributionMarginRate(a.mcReceita, a.mcVariaveis).rate : a.mc;
+      return { fixos: a.fixos, mc: mc, fatAtual: a.fatAtual };
+    },
     simFields: [{ id: 'fixos', l: 'Gastos fixos', k: CUR }, { id: 'mc', l: 'Margem de contribuição', k: PCT }, { id: 'fatAtual', l: 'Faturamento atual', k: CUR, optional: true }],
     compute: function (i) { var r = C.calculateBreakEven(i.fixos, i.mc); if (r.ok && i.fatAtual != null) r.gap = i.fatAtual - r.breakEven; return r; },
     outputs: [{ id: 'breakEven', l: 'Ponto de equilíbrio', f: money }],
@@ -753,8 +890,8 @@ var MODULES = {
       { id: 'periodo', kind: TXT, label: 'Qual <em>período</em> você quer analisar?', hint: 'Um mês, um trimestre, um ano. Todos os valores seguintes devem se referir a este mesmo período.', placeholder: 'Ex.: Agosto de 2026' },
       { id: 'receita', kind: CUR, label: 'Qual foi o <em>faturamento</em> do período?', hint: fieldHint(CUR) },
       { id: 'clientes', kind: INT, label: 'Quantos <em>clientes</em> compraram no período?', hint: 'Número de clientes ou de vendas.' },
-      { id: 'fixos', kind: CUR, label: 'Quanto somaram os <em>gastos fixos</em>?', hint: 'Aluguel, salários administrativos, pró-labore, contas fixas. ' + fieldHint(CUR) },
-      { id: 'variaveis', kind: CUR, allowZero: true, label: 'Quanto somaram os <em>gastos variáveis</em>?', hint: 'Impostos sobre vendas, comissões, taxas, fretes, mercadorias. ' + fieldHint(CUR) },
+      { id: 'fixos', kind: CUR, label: 'Quanto somaram os <em>gastos fixos</em>?', hint: 'Aluguel, salários administrativos, pró-labore, contas fixas.' + segmentHint('fixos') + ' ' + fieldHint(CUR) },
+      { id: 'variaveis', kind: CUR, allowZero: true, label: 'Quanto somaram os <em>gastos variáveis</em>?', hint: 'Impostos sobre vendas, comissões, taxas, fretes, mercadorias.' + segmentHint('variaveis') + ' ' + fieldHint(CUR) },
       { id: 'totais', kind: CUR, label: 'Quanto somaram os <em>gastos totais</em>?', hint: 'Tudo o que saiu no período. Normalmente é a soma de fixos e variáveis, mas pode incluir outros itens (investimentos, juros, perdas).', suggest: function (a) { return { v: a.fixos + a.variaveis, t: 'Usar fixos + variáveis (' + money(a.fixos + a.variaveis) + ')' }; } }
     ]; },
     inputs: function (a) { return { periodo: a.periodo, revenue: a.receita, customers: a.clientes, fixedExpenses: a.fixos, variableExpenses: a.variaveis, totalExpenses: a.totais }; },
