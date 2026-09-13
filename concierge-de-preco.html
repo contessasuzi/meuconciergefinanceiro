@@ -575,11 +575,11 @@ if (raw == null) return NaN;
 var s = String(raw).trim().toLowerCase();
 if (!s) return NaN;
 var mult = 1;
-if (/mil/.test(s)) { mult = 1000; s = s.replace(/mil/, ''); }
-if (/milh(ão|ao|ões|oes)/.test(s)) { mult = 1000000; s = s.replace(/milh(ão|ao|ões|oes)/, ''); }
-s = s.replace(/r$|%|s/g, '');
-if (!/^[-+]?[d.,]+$/.test(s)) return NaN;
-if (s.indexOf(',') >= 0) { s = s.replace(/./g, '').replace(',', '.'); }
+if (/mil/.test(s)) { mult = 1000; s = s.replace(/mil/, ''); }
+if (/milh(ão|ao|ões|oes)/.test(s)) { mult = 1000000; s = s.replace(/milh(ão|ao|ões|oes)/, ''); }
+s = s.replace(/r\$|%|\s/g, '');
+if (!/^[-+]?[\d.,]+$/.test(s)) return NaN;
+if (s.indexOf(',') >= 0) { s = s.replace(/\./g, '').replace(',', '.'); }
 else if (s.indexOf('.') >= 0) {
 var parts = s.split('.');
 var allThousands = parts.slice(1).every(function (p) { return p.length === 3; });
@@ -589,17 +589,20 @@ else if (parts.length > 2) return NaN;
 var n = parseFloat(s);
 return isFinite(n) ? n * mult : NaN;
 }
+var n = parseFloat(s);
+return isFinite(n) ? n * mult : NaN;
+}
 
 /* Máscara de moeda ao digitar: agrupa milhares com ponto enquanto a pessoa digita
 (ex.: "1000" vira "1.000") e preserva os centavos se ela digitar uma vírgula.
 Ao sair do campo, completa com ",00" se nenhum centavo foi informado. */
 function maskCurrencyLive(raw) {
-var s = raw.replace(/[^d,]/g, '');
+var s = raw.replace(/[^\d,]/g, '');
 var firstComma = s.indexOf(',');
 if (firstComma >= 0) s = s.slice(0, firstComma + 1) + s.slice(firstComma + 1).replace(/,/g, '');
 var parts = s.split(',');
-var intPart = parts[0].replace(/^0+(?=d)/, '');
-intPart = intPart.replace(/B(?=(d{3})+(?!d))/g, '.');
+var intPart = parts[0].replace(/^0+(?=\d)/, '');
+intPart = intPart.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
 if (parts.length > 1) return intPart + ',' + parts[1].slice(0, 2);
 return intPart;
 }
@@ -640,8 +643,8 @@ if (!seg || !SEGMENT_HINTS[seg]) return '';
 var h = SEGMENT_HINTS[seg];
 return ' No seu segmento (' + seg + '), exemplos comuns: ' + (kind === 'fixos' ? h.fixos : h.variaveis) + '.';
 }
-function validEmail(v) { return /^[^s@]+@[^s@]+.[^s@]+$/.test(v); }
-function onlyDigits(v) { return (v || '').replace(/D/g, ''); }
+function validEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
+function onlyDigits(v) { return (v || '').replace(/\D/g, ''); }
 
 function renderGate() {
 crumb(['Concierge de Preço']); progress(0, 0);
