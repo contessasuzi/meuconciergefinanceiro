@@ -654,7 +654,7 @@ h += '<div class="gate-row"><label for="g-fone">WhatsApp</label><div class="fiel
 h += '<div class="gate-row"><label for="g-seg">Segmento / área de atuação</label><select id="g-seg">' + '<option value="" disabled' + (state.lead ? '' : ' selected') + '>Selecione</option>' + SEGMENTOS.map(function (s) { return '<option' + (state.lead && state.lead.segmento === s ? ' selected' : '') + '>' + s + '</option>'; }).join('') + '</select></div>';
 h += '<div class="gate-row" id="g-seg-outro-row" hidden><label for="g-seg-outro">Descreva sua área de atuação</label><div class="field-wrap"><input id="g-seg-outro" type="text" class="plain" placeholder="Ex.: consultoria em RH" value="' + esc(state.lead && state.lead.segmentoOutro || '') + '"></div></div>';
 h += '</div><div class="field-error" id="err" role="alert" hidden></div>';
-h += '<p class="gate-consent">Ao clicar em 'Liberar a ferramenta', você concorda em receber comunicações e novidades do Meu Concierge Financeiro. Seus dados serão tratados com total segurança, respeitando as normas da LGPD.</p>';
+h += '<p class="gate-consent">Ao clicar em ‘Liberar a ferramenta’, você concorda em receber comunicações e novidades do Meu Concierge Financeiro. Seus dados serão tratados com total segurança, respeitando as normas da LGPD.</p>';
 h += '<button type="button" class="btn-next" id="g-go">Liberar a ferramenta ' + ARROW + '</button></div>';
 $body.innerHTML = h; $foot.innerHTML = '';
 var $seg = document.getElementById('g-seg'), $segOutroRow = document.getElementById('g-seg-outro-row');
