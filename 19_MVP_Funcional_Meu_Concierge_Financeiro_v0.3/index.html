@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Meu Concierge Financeiro — MVP funcional v0.2</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap');
+*{box-sizing:border-box}:root{--gold:#B8945A;--gold-light:#D4B483;--ink:#0F0E0C;--ink80:#1A1917;--ink60:#2E2D2A;--muted:#7A756C;--cream:#FAF8F4;--rule:rgba(184,148,90,.2);--rule2:rgba(184,148,90,.35);--red:#C0392B;--green:#6F8B72}
+body{margin:0;background:var(--ink);color:var(--cream);font:15px/1.7 Inter,sans-serif;-webkit-font-smoothing:antialiased}
+button,input,select{font:inherit}.hidden{display:none!important}.shell{min-height:100vh}.login{max-width:540px;margin:0 auto;padding:11vh 24px}.brand{font-family:"Cormorant Garamond";text-transform:uppercase;letter-spacing:.12em;color:var(--gold-light);font-size:1.25rem}.eyebrow{font-size:.65rem;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin-top:28px}
+h1,h2,h3{font-family:"Cormorant Garamond",serif;font-weight:300}h1{font-size:clamp(2.8rem,6vw,4.7rem);line-height:1.02;margin:10px 0 18px}h2{font-size:2rem;line-height:1.1}.lead,.help{color:rgba(250,248,244,.55);font-weight:300}.card{background:var(--ink80);border:.5px solid var(--rule);padding:24px}.field{margin:20px 0}.field label{display:block;font-family:"Cormorant Garamond";font-size:1.1rem;margin-bottom:7px}.field small{display:block;color:var(--muted);margin-top:5px}
+input,select{width:100%;background:var(--ink);border:.5px solid var(--rule2);color:var(--cream);padding:13px 14px;outline:none}input:focus,select:focus{border-color:var(--gold)}
+.btn{border:0;background:var(--gold);color:var(--ink);padding:13px 20px;text-transform:uppercase;letter-spacing:.15em;font-size:.67rem;font-weight:600;cursor:pointer}.btn.secondary{background:transparent;color:var(--cream);border:.5px solid var(--rule2)}.btn.ghost{background:transparent;color:var(--gold-light);padding-left:0}
+.app{display:grid;grid-template-columns:255px 1fr;min-height:100vh}.side{border-right:.5px solid var(--rule);padding:28px 22px;position:sticky;top:0;height:100vh}.side small{display:block;color:var(--muted);text-transform:uppercase;letter-spacing:.15em;font-size:.6rem;margin:5px 0 30px}.nav button{width:100%;text-align:left;background:none;border:0;border-bottom:.5px solid var(--rule);color:rgba(250,248,244,.45);padding:13px 7px;text-transform:uppercase;letter-spacing:.12em;font-size:.66rem;cursor:pointer}.nav button.active,.nav button:hover{color:var(--gold-light)}
+.main{padding:28px 42px 70px;max-width:1280px;width:100%;margin:auto}.top{display:flex;justify-content:space-between;align-items:center;border-bottom:.5px solid var(--rule);padding-bottom:20px;margin-bottom:35px}.user{font-size:.62rem;text-transform:uppercase;letter-spacing:.12em;color:var(--muted)}
+.screen{display:none}.screen.active{display:block}.grid{display:grid;gap:0}.g4{grid-template-columns:repeat(4,1fr)}.g2{grid-template-columns:repeat(2,1fr)}.grid>.card+.card{border-left:0}.kpi .label{font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted)}.kpi .value,.metric strong{font-family:Inter,sans-serif;font-variant-numeric:tabular-nums lining-nums}.kpi .value{font-size:2rem;letter-spacing:-.035em;color:var(--gold-light);font-weight:300;margin-top:8px}.metric{display:flex;justify-content:space-between;border-bottom:.5px solid var(--rule);padding:11px 0;gap:18px}.metric strong{color:var(--gold-light);font-weight:400}
+.progress{height:1px;background:var(--rule);margin:18px 0 30px}.progress span{display:block;height:100%;background:var(--gold)}.step{display:none;max-width:780px}.step.active{display:block}.row{display:flex;justify-content:space-between;gap:12px;margin-top:28px}.choices{display:grid;grid-template-columns:repeat(2,1fr);gap:0}.choice{background:var(--ink80);border:.5px solid var(--rule);color:var(--cream);padding:15px;text-align:left;cursor:pointer}.choice.selected{border-color:var(--gold);background:rgba(184,148,90,.06)}.quality{display:flex;gap:8px;margin-top:8px}.quality button{background:none;border:.5px solid var(--rule);color:var(--muted);padding:6px 10px;cursor:pointer;font-size:.7rem}.quality button.active{border-color:var(--gold);color:var(--gold-light)}
+.notice{border-left:1px solid var(--gold);background:rgba(184,148,90,.045);padding:16px 18px;color:rgba(250,248,244,.68);margin:18px 0}.insight{border-left:1px solid var(--gold);margin-top:0}.badge{font-size:.58rem;letter-spacing:.15em;text-transform:uppercase;color:var(--gold-light)}.error{color:#df776d;font-size:.75rem;margin-top:6px}.save{color:var(--gold-light);font-size:.7rem}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}
+@media(max-width:900px){.app{grid-template-columns:1fr}.side{height:auto;position:relative}.nav{display:flex;overflow:auto}.nav button{white-space:nowrap;width:auto}.main{padding:22px 18px 55px}.g4,.g2,.choices{grid-template-columns:1fr}.grid>.card+.card{border-left:.5px solid var(--rule);border-top:0}.top{align-items:flex-start;gap:12px}}
+</style></head>
+<body>
+<div id="loginView" class="shell">
+ <div class="login">
+  <div class="brand">Meu Concierge Financeiro</div>
+  <div class="eyebrow">Inteligência financeira para decisões reais</div>
+  <h1>Descubra o que os números da sua empresa realmente estão dizendo.</h1>
+  <p class="lead">Veja com clareza quanto seu negócio realmente gera, onde o resultado está ficando e o que precisa mudar para você ganhar mais.</p>
+  <div class="card">
+   <div class="field"><label>Seu e-mail</label><input id="loginEmail" type="email" placeholder="voce@empresa.com.br"></div>
+   <button class="btn" onclick="login()">Entrar no ambiente de teste</button>
+   <div id="loginError" class="error"></div>
+  </div>
+ </div>
+</div>
+
+<div id="appView" class="app hidden">
+ <aside class="side"><div class="brand">Meu Concierge Financeiro</div><small>Inteligência Financeira</small>
+  <div class="nav">
+   <button class="active" data-screen="company" onclick="showScreen('company',this)">Minha empresa</button>
+   <button data-screen="journey" onclick="showScreen('journey',this)">Primeiro diagnóstico</button>
+   <button data-screen="result" onclick="showScreen('result',this)">Resultado</button>
+  </div>
+ </aside>
+ <main class="main">
+  <div class="top"><select id="companySelect" onchange="loadCompany()"></select><div><span id="saveState" class="save"></span> <span id="userEmail" class="user"></span> <button class="btn ghost" onclick="logout()">Sair</button></div></div>
+
+  <section id="company" class="screen active">
+   <div class="eyebrow">Cadastro mestre</div><h1>Primeiro, conte o essencial sobre seu negócio.</h1>
+   <p class="lead">O Concierge reutiliza essas informações nas próximas jornadas. Você não precisará preencher tudo de novo.</p>
+   <div class="card" style="max-width:780px">
+    <div class="field"><label>Nome da empresa</label><input id="companyName" placeholder="Ex.: Minha Empresa"></div>
+    <div class="field"><label>Como sua empresa ganha dinheiro?</label>
+     <div class="choices" id="businessChoices">
+      <button class="choice" data-value="commerce">Venda de produtos</button><button class="choice" data-value="service">Prestação de serviços</button>
+      <button class="choice" data-value="professional">Atuação profissional</button><button class="choice" data-value="industry">Produção / indústria</button>
+      <button class="choice" data-value="hybrid">Produtos + serviços</button><button class="choice" data-value="other">Outro modelo</button>
+     </div>
+    </div>
+    <div class="field"><label>Segmento</label><input id="segment" placeholder="Ex.: estética, consultoria, comércio de roupas"></div>
+    <button class="btn" onclick="saveCompanyAndStart()">Salvar e iniciar diagnóstico</button>
+    <div id="companyError" class="error"></div>
+   </div>
+  </section>
+
+  <section id="journey" class="screen">
+   <div class="eyebrow" id="stepEyebrow">Jornada 1 • Passo 1 de 7</div><h1 id="stepTitle">Vamos olhar um mês real da sua empresa.</h1>
+   <p class="lead" id="stepLead">Use o último mês completo. Se não souber algum valor exato, informe uma estimativa.</p>
+   <div class="progress"><span id="progressBar" style="width:14%"></span></div>
+
+   <div class="step active card" data-step="1">
+    <div class="field"><label>Mês de referência</label><input id="referenceMonth" type="month"></div>
+    <div class="field"><label>Quanto sua empresa faturou nesse mês?</label><input id="grossRevenue" inputmode="decimal" placeholder="40000"><small>Total vendido/faturado antes das despesas.</small></div>
+    <div class="field"><label>Quantas vendas, pedidos ou serviços foram realizados?</label><input id="transactions" inputmode="numeric" placeholder="100"></div>
+    <div class="quality" data-quality-for="revenue"><button data-q="confirmed" class="active">Valor exato</button><button data-q="estimated">Estimativa</button><button data-q="unknown">Não sei</button></div>
+   </div>
+
+   <div class="step card" data-step="2">
+    <h2>Quais gastos aumentam quando você vende?</h2><p class="help">Pense assim: se você não vendesse nada neste mês, este gasto ainda existiria?</p>
+    <div class="field"><label>Compra, produção, matéria-prima ou terceiros</label><input id="varDirect" inputmode="decimal" placeholder="12000"></div>
+    <div class="field"><label>Comissões</label><input id="varCommission" inputmode="decimal" placeholder="1200"></div>
+    <div class="field"><label>Taxas de cartão / marketplace</label><input id="varFees" inputmode="decimal" placeholder="800"></div>
+    <div class="field"><label>Impostos ligados às vendas</label><input id="varTax" inputmode="decimal" placeholder="2400"></div>
+    <div class="field"><label>Outros gastos que acompanham as vendas</label><input id="varOther" inputmode="decimal" placeholder="600"></div>
+    <div class="quality" data-quality-for="variable"><button data-q="confirmed" class="active">Valores exatos</button><button data-q="estimated">Parte estimada</button><button data-q="unknown">Ainda não sei</button></div>
+   </div>
+
+   <div class="step card" data-step="3">
+    <h2>Quanto custa manter sua empresa funcionando?</h2><p class="help">Aqui entram gastos que existem mesmo quando as vendas variam.</p>
+    <div class="field"><label>Aluguel / estrutura</label><input id="fixRent" inputmode="decimal" placeholder="3000"></div>
+    <div class="field"><label>Equipe / salários fixos</label><input id="fixPayroll" inputmode="decimal" placeholder="4500"></div>
+    <div class="field"><label>Contador, sistemas e assinaturas</label><input id="fixAdmin" inputmode="decimal" placeholder="1500"></div>
+    <div class="field"><label>Marketing recorrente</label><input id="fixMarketing" inputmode="decimal" placeholder="1500"></div>
+    <div class="field"><label>Outras despesas fixas</label><input id="fixOther" inputmode="decimal" placeholder="1500"></div>
+    <div class="quality" data-quality-for="fixed"><button data-q="confirmed" class="active">Valores exatos</button><button data-q="estimated">Parte estimada</button><button data-q="unknown">Ainda não sei</button></div>
+   </div>
+
+   <div class="step card" data-step="4">
+    <h2>E você, quanto recebe do negócio?</h2>
+    <div class="field"><label>Quanto você retira hoje por mês?</label><input id="ownerCurrent" inputmode="decimal" placeholder="5000"></div>
+    <div class="field"><label>Quanto gostaria de receber por mês?</label><input id="ownerDesired" inputmode="decimal" placeholder="7000"></div>
+    <div class="notice">Sua retirada fica separada das despesas fixas. Assim evitamos contar o mesmo valor duas vezes.</div>
+   </div>
+
+   <div class="step card" data-step="5">
+    <h2>Quanto do seu tempo realmente pode ser vendido?</h2><p class="help">Esta etapa aparece para negócios de serviços, profissionais e híbridos.</p>
+    <div class="field"><label>Horas trabalhadas no mês</label><input id="workHours" inputmode="decimal" placeholder="180"></div>
+    <div class="field"><label>Horas que realmente podem ser cobradas dos clientes</label><input id="billableHours" inputmode="decimal" placeholder="110"></div>
+    <div id="hoursError" class="error"></div>
+   </div>
+
+   <div class="step card" data-step="6">
+    <h2>Que resultado você gostaria que a empresa gerasse?</h2>
+    <div class="field"><label>Resultado mensal desejado, além da sua remuneração</label><input id="desiredProfit" inputmode="decimal" placeholder="6000"></div>
+    <div class="field"><label>Reserva mensal desejada (opcional)</label><input id="desiredReserve" inputmode="decimal" placeholder="1000"></div>
+    <div class="notice">A reserva é uma meta gerencial. Ela não será tratada automaticamente como despesa da DRE.</div>
+   </div>
+
+   <div class="step card" data-step="7">
+    <h2>Pronto para transformar esses dados em decisão?</h2>
+    <p class="help">O motor vai calcular ticket médio, margem de contribuição, ponto de equilíbrio, resultado gerencial, margem de segurança e faturamento necessário para a meta.</p>
+    <div class="notice" id="summaryBeforeCalc"></div>
+   </div>
+
+   <div class="row"><button class="btn secondary" id="backBtn" onclick="prevStep()">Voltar</button><button class="btn" id="nextBtn" onclick="nextStep()">Continuar</button></div>
+   <div id="journeyError" class="error"></div>
+  </section>
+
+  <section id="result" class="screen">
+   <div class="eyebrow">Seu primeiro diagnóstico</div><h1 id="resultTitle">Sua empresa em números que ajudam você a decidir.</h1>
+   <p class="lead">O cálculo é determinístico. A interpretação abaixo traduz os números para a realidade do negócio.</p>
+   <div class="grid g4">
+    <div class="card kpi"><div class="label">Faturamento</div><div class="value" id="kRevenue">—</div></div>
+    <div class="card kpi"><div class="label">Ponto de equilíbrio</div><div class="value" id="kBreakEven">—</div></div>
+    <div class="card kpi"><div class="label">Resultado gerencial</div><div class="value" id="kResult">—</div></div>
+    <div class="card kpi"><div class="label">Margem de segurança</div><div class="value" id="kSafety">—</div></div>
+   </div>
+   <div class="grid g2" style="margin-top:18px">
+    <div class="card">
+     <h2>O que seus números estão dizendo</h2>
+     <div class="metric"><span>Ticket médio</span><strong id="mTicket">—</strong></div>
+     <div class="metric"><span>Custos variáveis</span><strong id="mVariable">—</strong></div>
+     <div class="metric"><span>Margem de contribuição</span><strong id="mContribution">—</strong></div>
+     <div class="metric"><span>Estrutura + remuneração atual</span><strong id="mStructure">—</strong></div>
+     <div class="metric"><span>Margem do resultado</span><strong id="mResultMargin">—</strong></div>
+     <div class="metric"><span>Faturamento para sua meta</span><strong id="mTarget">—</strong></div>
+    </div>
+    <div>
+     <div class="card insight"><span class="badge" id="severity">DIAGNÓSTICO</span><h2 id="insightTitle"></h2><p class="help" id="insightText"></p></div>
+     <div class="card insight"><span class="badge">CONFIABILIDADE</span><h2 id="confidenceTitle"></h2><p class="help" id="confidenceText"></p></div>
+    </div>
+   </div>
+   <div class="actions"><button class="btn" onclick="showScreen('journey');setStep(1)">Atualizar diagnóstico</button><button class="btn secondary" onclick="downloadData()">Exportar meus dados</button></div>
+  </section>
+ </main>
+</div>
+<script type="module">
+import {calculateDiagnosis,targetRevenue} from './js/financial-engine.js';
+const $=id=>document.getElementById(id), money=v=>v==null?'—':new Intl.NumberFormat('pt-BR',{style:'currency',currency:'BRL',maximumFractionDigits:0}).format(v);
+const pct=v=>v==null?'—':new Intl.NumberFormat('pt-BR',{style:'percent',maximumFractionDigits:1}).format(v);
+const num=id=>{const x=$(id).value.trim().replace(/\./g,'').replace(',','.');return x===''?0:Number(x)||0};
+let state=JSON.parse(localStorage.getItem('mcf_mvp_v02')||'{}'); let step=1; let businessModel=state.company?.businessModel||''; let qualities=state.qualities||{revenue:'confirmed',variable:'confirmed',fixed:'confirmed'};
+window.login=()=>{let e=$('loginEmail').value.trim();if(!e.includes('@')){$('loginError').textContent='Informe um e-mail válido.';return}state.user={email:e};save();boot()};
+window.logout=()=>{delete state.user;save();location.reload()};
+function boot(){if(!state.user)return;$('loginView').classList.add('hidden');$('appView').classList.remove('hidden');$('userEmail').textContent=state.user.email;hydrate();refreshCompanySelect()}
+function save(){localStorage.setItem('mcf_mvp_v02',JSON.stringify(state));$('saveState')&&($('saveState').textContent='Salvo localmente');setTimeout(()=>{$('saveState')&&($('saveState').textContent='')},1200)}
+function hydrate(){if(state.company){$('companyName').value=state.company.name||'';$('segment').value=state.company.segment||'';businessModel=state.company.businessModel||'';document.querySelectorAll('.choice').forEach(b=>b.classList.toggle('selected',b.dataset.value===businessModel))}
+ if(state.data){for(const [k,v] of Object.entries(state.data)){if($(k))$(k).value=v??''}}
+ document.querySelectorAll('.quality').forEach(g=>{const key=g.dataset.qualityFor;g.querySelectorAll('button').forEach(b=>b.classList.toggle('active',qualities[key]===b.dataset.q))})}
+function refreshCompanySelect(){let name=state.company?.name||'Nova empresa';$('companySelect').innerHTML='<option>'+name+'</option>'}
+window.loadCompany=()=>{};
+document.querySelectorAll('.choice').forEach(b=>b.onclick=()=>{businessModel=b.dataset.value;document.querySelectorAll('.choice').forEach(x=>x.classList.remove('selected'));b.classList.add('selected')});
+document.querySelectorAll('.quality button').forEach(b=>b.onclick=()=>{const g=b.closest('.quality');qualities[g.dataset.qualityFor]=b.dataset.q;g.querySelectorAll('button').forEach(x=>x.classList.remove('active'));b.classList.add('active');state.qualities=qualities;save()});
+window.saveCompanyAndStart=()=>{let name=$('companyName').value.trim();if(!name||!businessModel){$('companyError').textContent='Informe o nome e o modelo do negócio.';return}state.company={name,businessModel,segment:$('segment').value.trim()};save();refreshCompanySelect();showScreen('journey');setStep(1)};
+window.showScreen=(id,btn)=>{document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));$(id).classList.add('active');document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.screen===id));window.scrollTo({top:0,behavior:'smooth'})};
+function persistFields(){const ids=['referenceMonth','grossRevenue','transactions','varDirect','varCommission','varFees','varTax','varOther','fixRent','fixPayroll','fixAdmin','fixMarketing','fixOther','ownerCurrent','ownerDesired','workHours','billableHours','desiredProfit','desiredReserve'];state.data=state.data||{};ids.forEach(id=>state.data[id]=$(id).value);state.qualities=qualities;save()}
+window.setStep=(n)=>{step=n;document.querySelectorAll('.step').forEach(s=>s.classList.toggle('active',Number(s.dataset.step)===step));$('stepEyebrow').textContent=`Jornada 1 • Passo ${step} de 7`;$('progressBar').style.width=(step/7*100)+'%';$('backBtn').style.visibility=step===1?'hidden':'visible';$('nextBtn').textContent=step===7?'Calcular meu diagnóstico':'Continuar';if(step===7)buildSummary();window.scrollTo({top:0,behavior:'smooth'})};
+function validate(){ $('journeyError').textContent=''; if(step===1&&(!num('grossRevenue')||!$('referenceMonth').value)){$('journeyError').textContent='Informe o mês e o faturamento para continuar.';return false}
+ if(step===5&&num('billableHours')>num('workHours')){$('hoursError').textContent='Horas faturáveis não podem ser maiores que as horas trabalhadas.';return false}$('hoursError').textContent='';return true}
+window.nextStep=()=>{persistFields();if(!validate())return;if(step<7){setStep(step+1)}else calculate()};
+window.prevStep=()=>{persistFields();if(step>1)setStep(step-1)};
+function buildSummary(){$('summaryBeforeCalc').textContent=`Vamos calcular ${state.company?.name||'sua empresa'} com faturamento de ${money(num('grossRevenue'))}, estrutura fixa informada e remuneração atual de ${money(num('ownerCurrent'))}.`}
+function calculate(){persistFields();const fixed=[num('fixRent'),num('fixPayroll'),num('fixAdmin'),num('fixMarketing'),num('fixOther')].map((amount,i)=>({amount}));const variable=[num('varDirect'),num('varCommission'),num('varFees'),num('varTax'),num('varOther')].map(amount=>({amount}));
+ const input={grossRevenue:num('grossRevenue'),transactions:num('transactions'),variableExpenses:variable,fixedExpenses:fixed,currentOwnerCompensation:num('ownerCurrent')};const d=calculateDiagnosis(input);const fixedTotal=fixed.reduce((s,x)=>s+x.amount,0);const target=targetRevenue({fixedExpenses:fixedTotal,desiredOwnerCompensation:num('ownerDesired'),desiredProfit:num('desiredProfit'),desiredReserve:num('desiredReserve'),contributionPct:d.contributionPct});
+ state.result={...d,targetRevenue:target,calculatedAt:new Date().toISOString()};save();renderResult();showScreen('result')}
+function confidence(){const vals=Object.values(qualities);if(vals.includes('unknown'))return ['Baixa','Há informações relevantes que ainda não foram informadas. Use este resultado como direção, não como precisão final.'];if(vals.includes('estimated'))return ['Média','Parte dos números foi estimada. O diagnóstico já orienta decisões, mas ficará mais preciso quando esses valores forem confirmados.'];return ['Alta','Os principais dados usados no diagnóstico foram marcados como confirmados.']}
+function renderResult(){const d=state.result;if(!d)return;$('resultTitle').textContent=(state.company?.name||'Sua empresa')+' em números que ajudam você a decidir.';$('kRevenue').textContent=money(num('grossRevenue'));$('kBreakEven').textContent=money(d.breakEven);$('kResult').textContent=money(d.managerialResult);$('kSafety').textContent=money(d.safetyMargin);
+ $('mTicket').textContent=money(d.ticketAverage);$('mVariable').textContent=money(d.variableCosts);$('mContribution').textContent=money(d.contribution)+' · '+pct(d.contributionPct);$('mStructure').textContent=money(d.structure);$('mResultMargin').textContent=pct(d.resultMargin);$('mTarget').textContent=money(d.targetRevenue);
+ let title,text,sev;if(d.contributionPct<=0){sev='CRÍTICO';title='Cada venda está consumindo resultado.';text='Os gastos que acompanham as vendas são iguais ou maiores que o faturamento. O ponto de equilíbrio não pode ser calculado até essa relação ser corrigida.'}
+ else if(d.managerialResult<0){sev='CRÍTICO';title='O faturamento ainda não sustenta a estrutura atual.';text=`Com os dados informados, faltam aproximadamente ${money(Math.abs(d.safetyMargin))} para alcançar a linha de equilíbrio.`}
+ else if(d.safetyMarginPct!=null&&d.safetyMarginPct<.1){sev='ATENÇÃO';title='Você está acima do equilíbrio, mas com pouca folga.';text='Uma queda relativamente pequena no faturamento pode levar o negócio para abaixo da linha de equilíbrio.'}
+ else{sev='POSITIVO';title='Sua empresa está acima do ponto de equilíbrio.';text=`Hoje, a linha de equilíbrio está em aproximadamente ${money(d.breakEven)}. O resultado gerencial informado é ${money(d.managerialResult)}.`}
+ $('severity').textContent=sev;$('insightTitle').textContent=title;$('insightText').textContent=text;const c=confidence();$('confidenceTitle').textContent=c[0];$('confidenceText').textContent=c[1]}
+window.downloadData=()=>{const blob=new Blob([JSON.stringify(state,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='meu-concierge-financeiro-dados-teste.json';a.click();URL.revokeObjectURL(a.href)}
+if(state.user){boot()}else if(state.company||state.data){/* keep data, require demo login */}
+if(state.result)renderResult();
+</script></body></html>
