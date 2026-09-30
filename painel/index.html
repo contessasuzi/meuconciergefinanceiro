@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Painel | Meu Concierge Financeiro</title>
+<meta name="robots" content="noindex,nofollow">
+<style>
+@font-face{font-family:Inter;src:url('/fonts/inter-v20-latin-regular.woff2') format('woff2');font-weight:400}
+@font-face{font-family:Inter;src:url('/fonts/inter-v20-latin-600.woff2') format('woff2');font-weight:600}
+@font-face{font-family:Cormorant;src:url('/fonts/cormorant-garamond-v21-latin-regular.woff2') format('woff2');font-weight:400}
+:root{--bg:#0c0c0b;--panel:#141411;--line:#342b1f;--gold:#c5a061;--cream:#f3eee5;--muted:#9d9992;--blue:#7e93a8;--purple:#87719d}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--cream);font-family:Inter,Arial,sans-serif}
+.shell{max-width:1180px;margin:auto;padding:44px 32px 72px}
+.top{display:flex;justify-content:space-between;gap:20px;align-items:flex-start;padding-bottom:26px;border-bottom:1px solid var(--line)}
+.kicker{letter-spacing:.24em;text-transform:uppercase;color:var(--gold);font-size:11px}
+h1{font:400 54px/1 Cormorant,serif;margin:12px 0 0}
+.user{color:var(--muted);font-size:13px;text-align:right}
+button.link{background:none;border:0;color:var(--gold);padding:10px 0;cursor:pointer}
+.intro{padding:38px 0 24px;color:var(--muted);max-width:780px;line-height:1.7}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.card{border:1px solid var(--line);background:var(--panel);padding:28px;min-height:280px;display:flex;flex-direction:column}
+.num{font:400 18px Cormorant;color:var(--gold);margin-bottom:34px}
+.card h2{font:400 34px Cormorant;margin:0 0 12px}
+.card p{color:var(--muted);line-height:1.6;font-size:14px;flex:1}
+.status{font-size:11px;letter-spacing:.13em;text-transform:uppercase;margin:24px 0 14px}
+.status.ok{color:#b7c99a}.status.blocked{color:#8f8b84}.status.gestao{color:var(--gold)}
+.btn{display:block;text-align:center;text-decoration:none;padding:13px 14px;border:1px solid var(--gold);color:var(--gold);font-size:13px}
+.btn.disabled{border-color:#37342f;color:#666;pointer-events:none}
+.bonus{margin-top:30px;border:1px solid var(--line);padding:28px;background:#11110f;display:flex;gap:18px;align-items:flex-end}
+.bonus .grow{flex:1}
+label{display:block;color:var(--muted);font-size:12px;margin-bottom:8px}
+input{width:100%;background:#0c0c0b;border:1px solid #3b3328;color:var(--cream);padding:13px 14px;outline:none}
+.bonus button{background:var(--gold);border:0;padding:14px 20px;cursor:pointer;font-weight:600}
+.msg{font-size:12px;color:var(--muted);margin-top:12px;min-height:18px}
+@media(max-width:850px){.grid{grid-template-columns:1fr}.bonus{display:block}.bonus button{width:100%;margin-top:12px}.top{display:block}.user{text-align:left;margin-top:20px}}
+</style>
+</head>
+<body>
+<main class="shell">
+  <header class="top">
+    <div>
+      <div class="kicker">Meu Concierge Financeiro</div>
+      <h1>Sua jornada financeira</h1>
+    </div>
+    <div class="user">
+      <div id="who">Carregando...</div>
+      <button class="link" id="logout">Sair</button>
+    </div>
+  </header>
+
+  <p class="intro">Cada fase é liberada conforme o seu direito de acesso. Em contas de gestão, todas as etapas permanecem disponíveis para homologação. Em contas de cliente, a liberação pode vir por pagamento ou código de validação.</p>
+
+  <section class="grid" id="phases"></section>
+
+  <section class="bonus" id="bonusBox">
+    <div class="grow">
+      <label>Tem um código de validação ou cortesia?</label>
+      <input id="bonus" placeholder="MCF-XXXXXXXX" autocomplete="off">
+      <div class="msg" id="bonusMsg"></div>
+    </div>
+    <button id="redeem">Liberar acesso</button>
+  </section>
+</main>
+<script>
+const labels={
+  1:{name:'Diagnóstico',text:'Entenda a realidade financeira da empresa e o que os números revelam.'},
+  2:{name:'Direcionamento',text:'Transforme a leitura em objetivo, simulações, precificação e plano de decisão.'},
+  3:{name:'Evolução',text:'Compare o realizado com as referências e acompanhe o próximo ciclo.'}
+};
+async function load(){
+  const res=await fetch('/api/auth/me',{cache:'no-store'});
+  if(res.status===401){location.href='/acesso/';return}
+  const data=await res.json();
+  const u=data.user;
+  document.getElementById('who').textContent=(u.full_name||u.email)+' · '+(u.role==='GESTAO'?'Gestão':'Cliente');
+  if(u.role==='GESTAO') document.getElementById('bonusBox').style.display='none';
+  const wrap=document.getElementById('phases'); wrap.innerHTML='';
+  data.phases.forEach(p=>{
+    const l=labels[p.phase];
+    const card=document.createElement('article'); card.className='card';
+    const status=p.allowed?(p.source==='GESTAO'?'Acesso de gestão':'Liberada'):'Bloqueada';
+    const statusClass=p.allowed?(p.source==='GESTAO'?'gestao':'ok'):'blocked';
+    card.innerHTML=
+      '<div class="num">0'+p.phase+'</div>'+
+      '<h2>'+l.name+'</h2>'+
+      '<p>'+l.text+'</p>'+
+      '<div class="status '+statusClass+'">'+status+'</div>'+
+      (p.allowed
+        ? '<a class="btn disabled" href="#" title="A interface protegida desta fase será conectada ao núcleo seguro na próxima etapa.">Acesso preparado</a>'
+        : '<a class="btn disabled" href="#">Aguardando liberação</a>');
+    wrap.appendChild(card);
+  });
+}
+document.getElementById('logout').onclick=async()=>{await fetch('/api/auth/logout',{method:'POST'});location.href='/acesso/'};
+document.getElementById('redeem').onclick=async()=>{
+  const el=document.getElementById('bonus'), msg=document.getElementById('bonusMsg');
+  msg.textContent='Validando...';
+  const res=await fetch('/api/access/redeem-bonus',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({code:el.value})});
+  const data=await res.json().catch(()=>({}));
+  if(!res.ok){msg.textContent='Código inválido, expirado ou já utilizado.';return}
+  msg.textContent='Acesso liberado com sucesso.';
+  el.value='';
+  setTimeout(load,300);
+};
+load();
+</script>
+</body>
+</html>
