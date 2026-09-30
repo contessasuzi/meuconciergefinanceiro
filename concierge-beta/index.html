@@ -1061,6 +1061,11 @@ window.openJourneySubstep=(phase,key)=>{if(!phaseEntitled(phase))return navigate
 function updateJourneyStage(screen){const current=screen==='phase4'?4:screen==='phase3'?3:screen==='phase2'?2:1;for(let phase=1;phase<=4;phase++){const el=$(`stage${phase}`);if(!el)continue;const entitled=phaseEntitled(phase),complete=phase===1&&!!state.result||phase===2&&!!state.phase2?.simulation||phase===3&&!!state.phase3?.cycles?.length||phase===4&&!!state.phase4?.reviewed;el.className='journey-stage '+(phase===current?'current':complete?'complete':entitled?'available':'locked');el.setAttribute('aria-disabled',entitled?'false':'true');const lock=el.querySelector('.lock');if(lock)lock.textContent=entitled?'⌄':'▣';const sub=$(`subnav${phase}`);if(sub&&!entitled)sub.classList.remove('open')}document.querySelectorAll('.journey-subnav').forEach(x=>x.classList.remove('open'));const expanded=Number(state.ui?.journeyExpandedPhase);const activeSub=expanded?$(`subnav${expanded}`):null;if(activeSub&&phaseEntitled(expanded))activeSub.classList.add('open');const phase=$('phaseCurrent');if(phase)phase.innerHTML=current===4?'<strong>Fase 04</strong> · Consolidação':current===3?'<strong>Fase 03</strong> · Evolução':current===2?'<strong>Fase 02</strong> · Direcionamento':'<strong>Fase 01</strong> · Diagnóstico'}
 window.__mcfApplyAccess=()=>{
  try{
+  const requested=Number(new URLSearchParams(location.search).get('fase'));
+  if([1,2,3].includes(requested)){
+   if(phaseEntitled(requested)){window.navigateJourneyPhase(requested);return}
+   window.navigateJourneyPhase(1);return
+  }
   const active=currentJourneyPhase();
   if(active>1&&!phaseEntitled(active)){window.navigateJourneyPhase(1);return}
   updateJourneyStage(state.ui?.activeScreen||'journey');
