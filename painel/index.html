@@ -88,7 +88,9 @@ async function load(){
       '<p>'+l.text+'</p>'+
       '<div class="status '+statusClass+'">'+status+'</div>'+
       (p.allowed
-        ? '<a class="btn" href="/concierge-beta/?fase='+p.phase+'">Entrar na fase</a>'
+        ? (u.role==='GESTAO'
+            ? '<a class="btn" href="/concierge-beta/?fase='+p.phase+'">Abrir para homologação</a>'
+            : '<a class="btn disabled" href="#">Acesso liberado · migração segura em preparação</a>')
         : '<a class="btn disabled" href="#">Aguardando liberação</a>');
     wrap.appendChild(card);
   });
