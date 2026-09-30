@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Acesso | Meu Concierge Financeiro</title>
+<meta name="robots" content="noindex,nofollow">
+<style>
+@font-face{font-family:Inter;src:url('/fonts/inter-v20-latin-regular.woff2') format('woff2');font-weight:400}
+@font-face{font-family:Inter;src:url('/fonts/inter-v20-latin-600.woff2') format('woff2');font-weight:600}
+@font-face{font-family:Cormorant;src:url('/fonts/cormorant-garamond-v21-latin-regular.woff2') format('woff2');font-weight:400}
+:root{--bg:#0c0c0b;--panel:#141411;--line:#342b1f;--gold:#c5a061;--cream:#f3eee5;--muted:#9d9992;--danger:#d68b80}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--cream);font-family:Inter,Arial,sans-serif;min-height:100vh;display:grid;place-items:center;padding:32px}
+.wrap{width:min(980px,100%);display:grid;grid-template-columns:1.05fr .95fr;border:1px solid var(--line);min-height:610px;background:var(--panel)}
+.brand{padding:64px 58px;border-right:1px solid var(--line);display:flex;flex-direction:column;justify-content:space-between}
+.kicker{letter-spacing:.28em;text-transform:uppercase;color:var(--gold);font-size:12px}
+h1{font-family:Cormorant,serif;font-weight:400;font-size:56px;line-height:.98;margin:26px 0 22px}
+.brand p{color:var(--muted);line-height:1.7;max-width:430px}
+.form{padding:58px 48px}
+.tabs{display:flex;gap:24px;margin-bottom:34px;border-bottom:1px solid var(--line)}
+.tab{background:none;border:0;color:var(--muted);padding:0 0 14px;font:600 13px Inter;letter-spacing:.08em;text-transform:uppercase;cursor:pointer}
+.tab.active{color:var(--gold);border-bottom:2px solid var(--gold)}
+label{display:block;font-size:12px;color:var(--muted);margin:18px 0 8px}
+input{width:100%;background:#0f0f0d;border:1px solid #3b3328;color:var(--cream);padding:14px 15px;font:400 15px Inter;outline:none}
+input:focus{border-color:var(--gold)}
+button.primary{width:100%;margin-top:24px;background:var(--gold);border:0;color:#111;padding:15px;font:600 14px Inter;cursor:pointer}
+.small{margin-top:18px;color:var(--muted);font-size:12px;line-height:1.6}
+.msg{min-height:22px;margin-top:18px;font-size:13px}
+.msg.error{color:var(--danger)} .msg.ok{color:#b7c99a}
+.hidden{display:none}
+@media(max-width:760px){.wrap{grid-template-columns:1fr}.brand{border-right:0;border-bottom:1px solid var(--line);padding:38px}.form{padding:38px}h1{font-size:44px}}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <section class="brand">
+    <div>
+      <div class="kicker">Meu Concierge Financeiro</div>
+      <h1>Seus números.<br>Sua próxima decisão.</h1>
+      <p>Entre para continuar sua jornada financeira. O acesso às fases é liberado de acordo com o seu direito de uso — compra, código de validação ou gestão.</p>
+    </div>
+    <div class="kicker">Ambiente seguro</div>
+  </section>
+  <section class="form">
+    <div class="tabs">
+      <button class="tab active" data-tab="login">Entrar</button>
+      <button class="tab" data-tab="register">Criar acesso</button>
+    </div>
+
+    <form id="login">
+      <label>E-mail</label>
+      <input type="email" name="email" autocomplete="email" required>
+      <label>Senha</label>
+      <input type="password" name="password" autocomplete="current-password" required>
+      <button class="primary" type="submit">Entrar no Concierge</button>
+    </form>
+
+    <form id="register" class="hidden">
+      <label>Nome</label>
+      <input type="text" name="fullName" autocomplete="name">
+      <label>E-mail</label>
+      <input type="email" name="email" autocomplete="email" required>
+      <label>Crie uma senha</label>
+      <input type="password" name="password" autocomplete="new-password" minlength="10" required>
+      <button class="primary" type="submit">Criar meu acesso</button>
+      <div class="small">A criação da conta não libera automaticamente nenhuma fase comercial. A liberação é registrada separadamente.</div>
+    </form>
+
+    <div id="msg" class="msg"></div>
+  </section>
+</main>
+<script>
+const msg=document.getElementById('msg');
+document.querySelectorAll('.tab').forEach(btn=>btn.onclick=()=>{
+  document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('form').forEach(f=>f.classList.add('hidden'));
+  document.getElementById(btn.dataset.tab).classList.remove('hidden');
+  msg.textContent=''; msg.className='msg';
+});
+async function submit(form,url){
+  msg.textContent=''; msg.className='msg';
+  const body=Object.fromEntries(new FormData(form).entries());
+  const res=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+  const data=await res.json().catch(()=>({}));
+  if(!res.ok){msg.textContent='Não foi possível concluir. Verifique os dados e tente novamente.';msg.className='msg error';return}
+  location.href='/painel/';
+}
+document.getElementById('login').onsubmit=e=>{e.preventDefault();submit(e.currentTarget,'/api/auth/login')};
+document.getElementById('register').onsubmit=e=>{e.preventDefault();submit(e.currentTarget,'/api/auth/register')};
+</script>
+</body>
+</html>
