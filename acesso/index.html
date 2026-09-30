@@ -59,12 +59,16 @@ button.primary{width:100%;margin-top:24px;background:var(--gold);border:0;color:
     <form id="register" class="hidden">
       <label>Nome</label>
       <input type="text" name="fullName" autocomplete="name">
+      <label>Empresa</label>
+      <input type="text" name="companyName" autocomplete="organization">
+      <label>CNPJ</label>
+      <input type="text" name="cnpj" inputmode="numeric" placeholder="00.000.000/0000-00">
       <label>E-mail</label>
       <input type="email" name="email" autocomplete="email" required>
       <label>Crie uma senha</label>
       <input type="password" name="password" autocomplete="new-password" minlength="10" required>
       <button class="primary" type="submit">Criar meu acesso</button>
-      <div class="small">A criação da conta não libera automaticamente nenhuma fase comercial. A liberação é registrada separadamente.</div>
+      <div class="small">A criação da conta não libera automaticamente nenhuma fase comercial. Pagamento ou código de validação liberam as etapas correspondentes; contas de gestão seguem uma regra interna separada.</div>
     </form>
 
     <div id="msg" class="msg"></div>
