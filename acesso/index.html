@@ -85,7 +85,9 @@ async function submit(form,url){
   const res=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
   const data=await res.json().catch(()=>({}));
   if(!res.ok){msg.textContent='Não foi possível concluir. Verifique os dados e tente novamente.';msg.className='msg error';return}
-  location.href='/painel/';
+  const params=new URLSearchParams(location.search);
+  const returnTo=params.get('returnTo');
+  location.href=returnTo&&returnTo.startsWith('/')?returnTo:'/painel/';
 }
 document.getElementById('login').onsubmit=e=>{e.preventDefault();submit(e.currentTarget,'/api/auth/login')};
 document.getElementById('register').onsubmit=e=>{e.preventDefault();submit(e.currentTarget,'/api/auth/register')};
