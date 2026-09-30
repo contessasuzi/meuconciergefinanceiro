@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Gestão | Meu Concierge Financeiro</title><meta name="robots" content="noindex,nofollow">
+<style>
+@font-face{font-family:Inter;src:url('/fonts/inter-v20-latin-regular.woff2') format('woff2');font-weight:400}
+@font-face{font-family:Inter;src:url('/fonts/inter-v20-latin-600.woff2') format('woff2');font-weight:600}
+@font-face{font-family:Cormorant;src:url('/fonts/cormorant-garamond-v21-latin-regular.woff2') format('woff2');font-weight:400}
+:root{--bg:#0c0c0b;--panel:#141411;--line:#342b1f;--gold:#c5a061;--cream:#f3eee5;--muted:#9d9992;--ok:#b7c99a;--danger:#d68b80}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--cream);font-family:Inter,Arial,sans-serif}.shell{max-width:1220px;margin:auto;padding:42px 30px 70px}.top{display:flex;justify-content:space-between;gap:20px;border-bottom:1px solid var(--line);padding-bottom:26px}.kicker{letter-spacing:.24em;text-transform:uppercase;color:var(--gold);font-size:11px}h1,h2{font-family:Cormorant,serif;font-weight:400}h1{font-size:54px;margin:10px 0 0}.nav a{color:var(--gold);text-decoration:none;margin-left:20px;font-size:13px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:28px}.card{background:var(--panel);border:1px solid var(--line);padding:26px}.card h2{font-size:32px;margin:0 0 10px}.muted{color:var(--muted);font-size:13px;line-height:1.6}label{display:block;color:var(--muted);font-size:12px;margin:16px 0 7px}input{width:100%;background:#0d0d0c;color:var(--cream);border:1px solid #3b3328;padding:12px}.btn{margin-top:18px;background:var(--gold);color:#111;border:0;padding:13px 18px;font-weight:600;cursor:pointer}.codes{margin-top:18px;display:grid;gap:8px}.code{border:1px solid var(--line);padding:12px 14px;font-family:monospace;display:flex;justify-content:space-between;gap:12px}.table{margin-top:24px;border-top:1px solid var(--line)}.row{display:grid;grid-template-columns:1.25fr 1fr .7fr 1fr;gap:12px;padding:13px 0;border-bottom:1px solid var(--line);font-size:12px}.head{color:var(--muted);text-transform:uppercase;letter-spacing:.08em}.status{color:var(--ok)}.msg{font-size:12px;color:var(--muted);margin-top:12px}.danger{color:var(--danger)}@media(max-width:850px){.grid{grid-template-columns:1fr}.row{grid-template-columns:1fr}.head{display:none}.top{display:block}.nav{margin-top:18px}.nav a{margin:0 18px 0 0}}
+</style>
+</head>
+<body><main class="shell">
+<header class="top"><div><div class="kicker">Meu Concierge Financeiro · Gestão</div><h1>Painel de validação e acesso</h1></div><nav class="nav"><a href="/painel/">Jornada</a><a href="/concierge-beta/">Abrir sistema</a><a href="#" id="logout">Sair</a></nav></header>
+<section class="grid">
+  <article class="card"><h2>Códigos para cases</h2><p class="muted">Gere códigos individuais para usuários de validação. Eles vivem a jornada real, sem cobrança, e não recebem privilégios de gestão.</p>
+  <label>Quantidade</label><input id="count" type="number" min="1" max="50" value="10">
+  <label>Campanha</label><input id="campaign" value="cases-validacao-mercado">
+  <button class="btn" id="generate">Gerar códigos</button><div class="msg" id="codeMsg"></div><div class="codes" id="codes"></div></article>
+  <article class="card"><h2>Conta de gestão</h2><p class="muted">Seu perfil de gestão ignora as travas comerciais das três fases, mas continua autenticado e auditado no servidor. Use este ambiente para homologação.</p><div id="me" class="msg">Carregando...</div></article>
+</section>
+<section class="card" style="margin-top:22px"><h2>Usuários e acessos</h2><p class="muted">Visão operacional para acompanhar clientes pagos, cases e fontes de liberação.</p><div class="table"><div class="row head"><div>Usuário</div><div>Empresa / CNPJ</div><div>Perfil</div><div>Fases liberadas</div></div><div id="users"></div></div></section>
+</main>
+<script>
+async function api(url,opt){const r=await fetch(url,{cache:'no-store',...(opt||{})});if(r.status===401){location.href='/acesso/?returnTo=/gestao/';throw new Error('auth')}if(r.status===403){location.href='/painel/';throw new Error('forbidden')}const d=await r.json().catch(()=>({}));if(!r.ok)throw new Error(d.error||'erro');return d}
+async function load(){try{const me=await api('/api/auth/me');if(me.user.role!=='GESTAO'){location.href='/painel/';return}document.getElementById('me').textContent=(me.user.full_name||me.user.email)+' · acesso integral às fases 1, 2 e 3';const data=await api('/api/admin/users');const wrap=document.getElementById('users');wrap.innerHTML='';data.users.forEach(u=>{const phases=(u.role==='GESTAO'?'1, 2, 3':(u.entitlements||[]).map(e=>e.phase+' ('+e.source+')').join(', ')||'—');const div=document.createElement('div');div.className='row';div.innerHTML='<div><strong>'+esc(u.full_name||'')+'</strong><br><span class="muted">'+esc(u.email)+'</span></div><div>'+esc(u.trade_name||u.legal_name||'—')+'<br><span class="muted">'+esc(u.cnpj||'')+'</span></div><div>'+esc(u.role)+'</div><div>'+esc(phases)+'</div>';wrap.appendChild(div)})}catch(e){}}
+function esc(v){return String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
+document.getElementById('generate').onclick=async()=>{const msg=document.getElementById('codeMsg'),box=document.getElementById('codes');msg.textContent='Gerando...';box.innerHTML='';try{const d=await api('/api/admin/bonus-codes',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({count:Number(document.getElementById('count').value||10),campaign:document.getElementById('campaign').value,phases:[1,2,3]})});msg.textContent='Códigos gerados. Salve-os agora: o sistema não guarda o código completo.';d.issued.forEach(x=>{const el=document.createElement('div');el.className='code';el.innerHTML='<span>'+esc(x.code)+'</span><button data-code="'+esc(x.code)+'">Copiar</button>';el.querySelector('button').onclick=()=>navigator.clipboard.writeText(x.code);box.appendChild(el)})}catch(e){msg.textContent='Não foi possível gerar os códigos.';msg.className='msg danger'}};
+document.getElementById('logout').onclick=async e=>{e.preventDefault();await fetch('/api/auth/logout',{method:'POST'});location.href='/acesso/'};load();
+</script></body></html>
