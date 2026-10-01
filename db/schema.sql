@@ -107,3 +107,16 @@ CREATE INDEX IF NOT EXISTS idx_bonus_campaign ON bonus_codes(campaign);
 CREATE INDEX IF NOT EXISTS idx_payments_user ON payments(user_id);
 CREATE INDEX IF NOT EXISTS idx_payments_status ON payments(status);
 CREATE INDEX IF NOT EXISTS idx_audit_user ON audit_log(user_id);
+
+
+CREATE TABLE IF NOT EXISTS concierge_state (
+  user_id BIGINT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  company_id BIGINT REFERENCES companies(id) ON DELETE CASCADE,
+  version TEXT NOT NULL DEFAULT 'v1.72',
+  state JSONB NOT NULL DEFAULT '{}'::jsonb,
+  revision BIGINT NOT NULL DEFAULT 1,
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+  PRIMARY KEY(user_id, version)
+);
+
+CREATE INDEX IF NOT EXISTS idx_concierge_state_company ON concierge_state(company_id);
