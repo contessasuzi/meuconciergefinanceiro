@@ -2,9 +2,10 @@
   "name": "meuconciergefinanceiro",
   "private": true,
   "scripts": {
-    "test": "npm run test:calc && npm run test:diagnosis && npm run test:security",
+    "test": "npm run test:calc && npm run test:diagnosis && npm run test:pricing && npm run test:security",
     "test:calc": "node tests/concierge-de-preco-calc.test.js",
     "test:diagnosis": "node tests/diagnosis-v172-equivalence.test.js",
+    "test:pricing": "node tests/pricing-context.test.js",
     "test:security": "node tests/security-architecture.test.js"
   },
   "dependencies": {
